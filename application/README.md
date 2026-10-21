@@ -8,6 +8,25 @@
 | **Voie 3 · Prévisions** | **Voie 4 · Fiche relation** |
 | ![RailPulse Studio, voie Prévisions](../docs/images/application/voie3_previsions.png) | ![RailPulse Studio, voie Fiche relation](../docs/images/application/voie4_fiche_relation.png) |
 
+## Les visuels, un par un
+
+Onze visuels Vega-Lite et tableaux de l'application, tous alimentés en direct par des requêtes DAX sur `SM_RailPulse`.
+
+| | |
+|---|---|
+| **Voie 1 · Réseau · Voyageurs par ligne** | **Le réseau en carte** |
+| ![Voyageurs par ligne](../docs/images/application/visuels/01_voyageurs_par_ligne.png) | ![Le réseau en carte](../docs/images/application/visuels/02_carte_du_reseau.png) |
+| **Voie 1 · Réseau · Voyageurs et ponctualité, mois par mois** | **Voie 2 · Ponctualité : classement des 24 relations** |
+| ![Voyageurs et ponctualité, mois par mois](../docs/images/application/visuels/03_voyageurs_et_ponctualite_par_mois.png) | ![Voie 2 · Ponctualité : classement des 24 relations](../docs/images/application/visuels/04_classement_des_24_relations.png) |
+| **Voie 2 · Ponctualité · Heures sensibles de la semaine** | **Retard moyen par heure de départ** |
+| ![Heures sensibles de la semaine](../docs/images/application/visuels/05_heures_sensibles.png) | ![Retard moyen par heure de départ](../docs/images/application/visuels/06_retard_par_heure_de_depart.png) |
+| **Voie 3 · Prévisions · Trains prévus par jour et niveau de risque** | **Tableau des départs à surveiller** |
+| ![Trains prévus par jour et niveau de risque](../docs/images/application/visuels/07_trains_prevus_par_jour_et_risque.png) | ![Tableau des départs à surveiller](../docs/images/application/visuels/08_departs_a_surveiller.png) |
+| **Voie 4 · Fiche relation (Paris > Lyon) · Voyageurs et ponctualité, mois par mois** | **Retard moyen par heure de départ** |
+| ![Voyageurs et ponctualité, mois par mois](../docs/images/application/visuels/09_fiche_voyageurs_et_ponctualite.png) | ![Retard moyen par heure de départ](../docs/images/application/visuels/10_fiche_retard_par_heure.png) |
+| **Voie 4 · Fiche relation · Prochains départs prévus** | |
+| ![Prochains départs prévus](../docs/images/application/visuels/11_fiche_prochains_departs.png) | |
+
 ## Les quatre voies
 
 | Voie | Contenu |
