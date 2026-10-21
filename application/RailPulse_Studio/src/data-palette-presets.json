@@ -1,0 +1,28 @@
+{
+  "palettes": [
+    {
+      "id": "nuit-de-quai",
+      "name": "Nuit de quai",
+      "colors": {
+        "light": ["#1a4e8a", "#f0a030", "#00897b", "#6a3fc8", "#c23b3b", "#3d8b37", "#0b1f3a", "#d97706", "#4f6d8f", "#a3337a"],
+        "dark": ["#6aa8e8", "#f6c35b", "#2ec4b0", "#a585f2", "#ef7a7a", "#7cc96f", "#d6e1f0", "#f59e3b", "#9bb0cc", "#e07ab8"]
+      }
+    },
+    {
+      "id": "signal-alpin",
+      "name": "Signal alpin",
+      "colors": {
+        "light": ["#0d5c63", "#e4572e", "#29335c", "#f3a712", "#4c956c", "#8a4fff", "#2e86ab", "#a23b72", "#5b6b82", "#c18c5d"],
+        "dark": ["#3fb0b9", "#f0805e", "#a8b6e6", "#f7c04d", "#7cc49a", "#b28bff", "#6fbde0", "#e07aa8", "#9fb0c6", "#deb088"]
+      }
+    },
+    {
+      "id": "carte-de-ligne",
+      "name": "Carte de ligne",
+      "colors": {
+        "light": ["#0072ce", "#ffb81c", "#e4002b", "#00a651", "#8e44ad", "#00a3e0", "#f15a22", "#5c4d43", "#76bc21", "#d6006f"],
+        "dark": ["#4da3ec", "#ffcb5c", "#f05a6e", "#3ccf86", "#b57fd0", "#4fc6ef", "#f78a5c", "#b3a195", "#a0d65c", "#f05aa8"]
+      }
+    }
+  ]
+}

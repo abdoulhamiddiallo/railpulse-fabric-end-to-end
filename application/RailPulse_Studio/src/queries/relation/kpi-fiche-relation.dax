@@ -1,0 +1,20 @@
+// Fiche d'une relation : titres, récit et indicateurs.
+EVALUATE
+CALCULATETABLE(
+    ROW(
+        "Titre fiche relation", [Titre fiche relation],
+        "Sous-titre fiche relation", [Sous-titre fiche relation],
+        "Récit fiche relation", [Récit fiche relation],
+        "Ligne", SELECTEDVALUE('Relation'[Ligne]),
+        "Voyageurs", [Voyageurs],
+        "Chiffre d'affaires (M€)", [Chiffre d'affaires (M€)],
+        "Ponctualité %", [Ponctualité %],
+        "Objectif ponctualité %", [Objectif ponctualité %],
+        "Taux de remplissage %", [Taux de remplissage %],
+        "Recette par voyageur", [Recette par voyageur],
+        "Retard moyen (min)", [Retard moyen (min)],
+        "Trains prévus", [Trains prévus],
+        "Trains à risque élevé", [Trains à risque élevé]
+    )
+    /*,FILTRE_RELATION*/
+)

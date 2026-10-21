@@ -1,0 +1,13 @@
+station_code,station_name,city,country_code,latitude,longitude,is_hub
+PAR,Paris Est,Paris,FR,48.8768,2.3592,1
+LUX,Luxembourg,Luxembourg,LU,49.6,6.1339,1
+MTZ,Metz Ville,Metz,FR,49.1097,6.1772,0
+STR,Strasbourg,Strasbourg,FR,48.585,7.735,1
+BRU,Bruxelles Midi,Bruxelles,BE,50.8357,4.336,1
+AMS,Amsterdam Centraal,Amsterdam,NL,52.3791,4.9003,0
+CGN,Köln Hbf,Cologne,DE,50.943,6.9589,1
+FRA,Frankfurt Hbf,Francfort,DE,50.1071,8.6638,1
+BSL,Basel SBB,Bâle,CH,47.5476,7.5897,1
+ZRH,Zürich HB,Zurich,CH,47.3779,8.5403,1
+LYS,Lyon Part-Dieu,Lyon,FR,45.7606,4.8594,1
+MIL,Milano Centrale,Milan,IT,45.4864,9.2048,0

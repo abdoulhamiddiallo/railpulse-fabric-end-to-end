@@ -1,0 +1,56 @@
+/// Fait : réservations par train, classe et canal
+table Réservation
+
+	column trip_id
+		dataType: string
+		isHidden
+		summarizeBy: none
+		sourceColumn: trip_id
+
+	column date_key
+		dataType: int64
+		isHidden
+		summarizeBy: none
+		sourceColumn: date_key
+
+	column route_key
+		dataType: string
+		isHidden
+		summarizeBy: none
+		sourceColumn: route_key
+
+	column Classe
+		dataType: string
+		summarizeBy: none
+		sourceColumn: travel_class
+
+	column Canal
+		dataType: string
+		summarizeBy: none
+		sourceColumn: channel
+
+	column passengers
+		dataType: int64
+		isHidden
+		summarizeBy: none
+		sourceColumn: passengers
+
+	column revenue_eur
+		dataType: decimal
+		isHidden
+		summarizeBy: none
+		sourceColumn: revenue_eur
+
+	column avg_lead_days
+		dataType: double
+		isHidden
+		summarizeBy: none
+		sourceColumn: avg_lead_days
+
+	partition Réservation = entity
+		mode: directLake
+		source
+			entityName: fact_booking
+			schemaName: dbo
+			expressionSource: DatabaseQuery
+

@@ -1,0 +1,15 @@
+// Indicateurs de ponctualité et récit, sur le réseau ou la relation choisie.
+EVALUATE
+CALCULATETABLE(
+    ROW(
+        "Ponctualité %", [Ponctualité %],
+        "Écart à l'objectif (pts)", [Écart à l'objectif (pts)],
+        "Retard moyen (min)", [Retard moyen (min)],
+        "Trains en retard > 15 min", [Trains en retard > 15 min],
+        "Taux d'annulation %", [Taux d'annulation %],
+        "Objectif ponctualité %", [Objectif ponctualité %],
+        "Rang ponctualité", [Rang ponctualité],
+        "Récit ponctualité", [Récit ponctualité]
+    )
+    /*,FILTRE_RELATION*/
+)

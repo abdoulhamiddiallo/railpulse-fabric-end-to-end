@@ -1,0 +1,25 @@
+/// Mois de l'exercice d'exploitation, d'octobre à septembre
+table Mois
+
+	column month_num
+		isHidden
+		summarizeBy: none
+		isNameInferred
+		sourceColumn: [month_num]
+
+	column Mois
+		summarizeBy: none
+		isNameInferred
+		sourceColumn: [Mois]
+		sortByColumn: Ordre
+
+	column Ordre
+		isHidden
+		summarizeBy: none
+		isNameInferred
+		sourceColumn: [Ordre]
+
+	partition Mois = calculated
+		mode: import
+		source = DATATABLE ( "month_num", INTEGER, "Mois", STRING, "Ordre", INTEGER, { { 10, "oct. 25", 1 }, { 11, "nov. 25", 2 }, { 12, "déc. 25", 3 }, { 1, "janv. 26", 4 }, { 2, "févr. 26", 5 }, { 3, "mars 26", 6 }, { 4, "avr. 26", 7 }, { 5, "mai 26", 8 }, { 6, "juin 26", 9 }, { 7, "juil. 26", 10 }, { 8, "août 26", 11 }, { 9, "sept. 26", 12 } } )
+

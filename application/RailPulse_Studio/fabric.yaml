@@ -1,0 +1,7 @@
+activeProfile: default
+profiles:
+  default:
+    semanticModels:
+      railpulse:
+        workspaceId: <ID_ESPACE_DE_TRAVAIL>
+        itemId: <ID_MODELE_SEMANTIQUE>

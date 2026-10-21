@@ -1,0 +1,19 @@
+// RAILPULSE | EH_RailPulse | contrôles du flux temps réel (exécutez chaque bloc séparément)
+
+// 1. Le flux arrive : ce nombre augmente à chaque exécution
+live_telemetry
+| count
+
+// 2. Le réseau en direct : trains et retard moyen par ligne sur les 10 dernières minutes
+live_telemetry
+| extend ts = todatetime(event_time)
+| where ts > ago(10m)
+| summarize trains = dcount(train_id), retard_moyen = round(avg(delay_min), 1) by line_code
+| order by retard_moyen desc
+
+// 3. L'incident simulé : trains à l'arrêt sur la ligne L02
+live_telemetry
+| extend ts = todatetime(event_time)
+| where ts > ago(10m) and status == "INCIDENT"
+| summarize arg_max(ts, delay_min, speed_kmh) by train_id, line_code
+| order by delay_min desc

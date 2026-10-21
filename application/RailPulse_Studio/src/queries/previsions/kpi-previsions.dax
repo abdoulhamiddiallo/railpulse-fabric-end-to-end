@@ -1,0 +1,12 @@
+// Indicateurs des prévisions à 14 jours et récit.
+EVALUATE
+CALCULATETABLE(
+    ROW(
+        "Trains prévus", [Trains prévus],
+        "Retard prévu moyen (min)", [Retard prévu moyen (min)],
+        "Trains à risque élevé", [Trains à risque élevé],
+        "Part à risque élevé %", [Part à risque élevé %],
+        "Récit prévisions", [Récit prévisions]
+    )
+    /*,FILTRE_RELATION*/
+)

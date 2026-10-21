@@ -1,0 +1,139 @@
+{
+  "$schema": "https://vega.github.io/schema/vega-lite/v6.json",
+  "description": "Voyageurs mensuels (barres, axe gauche) et ponctualité (courbe, axe droit) avec l'objectif de 77 %.",
+  "width": "container",
+  "height": "container",
+  "layer": [
+    {
+      "layer": [
+        {
+          "mark": {
+            "type": "bar",
+            "opacity": 0.55
+          },
+          "encoding": {
+            "y": {
+              "field": "Voyageurs",
+              "type": "quantitative",
+              "title": "Voyageurs"
+            },
+            "tooltip": [
+              {
+                "field": "Mois",
+                "type": "ordinal"
+              },
+              {
+                "field": "Voyageurs",
+                "type": "quantitative"
+              },
+              {
+                "field": "Ponctualite",
+                "type": "quantitative"
+              }
+            ],
+            "x": {
+              "field": "Mois",
+              "type": "ordinal",
+              "sort": {
+                "field": "Ordre",
+                "op": "min"
+              },
+              "title": null,
+              "axis": {
+                "labelAngle": 0,
+                "labelOverlap": false,
+                "labelExpr": "split(datum.label, ' ')[0]"
+              }
+            }
+          }
+        }
+      ]
+    },
+    {
+      "layer": [
+        {
+          "mark": {
+            "type": "line",
+            "strokeWidth": 3,
+            "point": {
+              "filled": true,
+              "size": 45
+            }
+          },
+          "encoding": {
+            "y": {
+              "field": "Ponctualite",
+              "type": "quantitative",
+              "title": "Ponctualité",
+              "axis": {
+                "orient": "right"
+              },
+              "scale": {
+                "zero": false
+              }
+            },
+            "tooltip": [
+              {
+                "field": "Mois",
+                "type": "ordinal"
+              },
+              {
+                "field": "Ponctualite",
+                "type": "quantitative"
+              },
+              {
+                "field": "Objectif",
+                "type": "quantitative"
+              }
+            ],
+            "x": {
+              "field": "Mois",
+              "type": "ordinal",
+              "sort": {
+                "field": "Ordre",
+                "op": "min"
+              },
+              "axis": {
+                "labelAngle": 0,
+                "labelOverlap": false,
+                "labelExpr": "split(datum.label, ' ')[0]"
+              },
+              "title": null
+            }
+          }
+        },
+        {
+          "mark": {
+            "type": "rule",
+            "strokeDash": [
+              6,
+              4
+            ],
+            "strokeWidth": 1.5
+          },
+          "encoding": {
+            "y": {
+              "aggregate": "mean",
+              "field": "Objectif",
+              "type": "quantitative",
+              "title": "Ponctualité"
+            },
+            "tooltip": [
+              {
+                "aggregate": "mean",
+                "field": "Objectif",
+                "type": "quantitative",
+                "title": "Objectif de ponctualité"
+              }
+            ]
+          }
+        }
+      ]
+    }
+  ],
+  "resolve": {
+    "scale": {
+      "y": "independent"
+    }
+  }
+}

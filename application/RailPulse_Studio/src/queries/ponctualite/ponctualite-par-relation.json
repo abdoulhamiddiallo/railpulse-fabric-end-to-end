@@ -1,0 +1,127 @@
+{
+  "$schema": "https://vega.github.io/schema/vega-lite/v6.json",
+  "description": "Ponctualité par relation, colorée selon l'écart à l'objectif (conforme, vigilance à moins de 3 points, critique au-delà).",
+  "width": "container",
+  "height": "container",
+  "transform": [
+    {
+      "calculate": "datum.Ponctualite >= datum.Objectif ? 'Conforme' : (datum.Ponctualite >= datum.Objectif - 0.03 ? 'Vigilance' : 'Critique')",
+      "as": "Statut"
+    }
+  ],
+  "layer": [
+    {
+      "mark": {
+        "type": "bar",
+        "cursor": "pointer"
+      },
+      "encoding": {
+        "y": {
+          "field": "Relation",
+          "type": "nominal",
+          "sort": {
+            "field": "Ponctualite",
+            "op": "max",
+            "order": "descending"
+          },
+          "title": null
+        },
+        "x": {
+          "field": "Ponctualite",
+          "type": "quantitative",
+          "title": "Ponctualité"
+        },
+        "color": {
+          "field": "Statut",
+          "type": "nominal",
+          "title": "Statut",
+          "scale": {
+            "domain": [
+              "Conforme",
+              "Vigilance",
+              "Critique"
+            ],
+            "range": []
+          },
+          "legend": null
+        },
+        "opacity": {
+          "value": 1
+        },
+        "tooltip": [
+          {
+            "field": "Relation",
+            "type": "nominal"
+          },
+          {
+            "field": "Ligne",
+            "type": "nominal"
+          },
+          {
+            "field": "Ponctualite",
+            "type": "quantitative"
+          },
+          {
+            "field": "RetardMoyen",
+            "type": "quantitative"
+          },
+          {
+            "field": "TrainsAssures",
+            "type": "quantitative"
+          }
+        ]
+      }
+    },
+    {
+      "mark": {
+        "type": "text",
+        "style": "labelHorizontal"
+      },
+      "encoding": {
+        "y": {
+          "field": "Relation",
+          "type": "nominal",
+          "sort": {
+            "field": "Ponctualite",
+            "op": "max",
+            "order": "descending"
+          }
+        },
+        "x": {
+          "field": "Ponctualite",
+          "type": "quantitative"
+        },
+        "text": {
+          "field": "Ponctualite",
+          "type": "quantitative"
+        }
+      }
+    },
+    {
+      "mark": {
+        "type": "rule",
+        "strokeDash": [
+          6,
+          4
+        ],
+        "strokeWidth": 2
+      },
+      "encoding": {
+        "x": {
+          "aggregate": "mean",
+          "field": "Objectif",
+          "type": "quantitative",
+          "title": "Ponctualité"
+        },
+        "tooltip": [
+          {
+            "aggregate": "mean",
+            "field": "Objectif",
+            "type": "quantitative",
+            "title": "Objectif de ponctualité"
+          }
+        ]
+      }
+    }
+  ]
+}

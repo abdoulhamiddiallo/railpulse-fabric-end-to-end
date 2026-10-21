@@ -1,0 +1,49 @@
+{
+  "$schema": "https://developer.microsoft.com/json-schemas/fabric/item/report/definition/page/2.0.0/schema.json",
+  "name": "6a2139364f96787c8ce1",
+  "displayName": "Info-bulle relation",
+  "displayOption": "FitToPage",
+  "height": 240,
+  "width": 320,
+  "type": "Tooltip",
+  "visibility": "HiddenInViewMode",
+  "pageBinding": {
+    "name": "4b7c541760f42b952f20",
+    "type": "Tooltip",
+    "parameters": [
+      {
+        "name": "fd86a48178136bd4b83c",
+        "boundFilter": "e1ebabc62c01940ee967",
+        "fieldExpr": {
+          "Column": {
+            "Expression": {
+              "SourceRef": {
+                "Entity": "Relation"
+              }
+            },
+            "Property": "Relation"
+          }
+        }
+      }
+    ]
+  },
+  "filterConfig": {
+    "filters": [
+      {
+        "name": "e1ebabc62c01940ee967",
+        "field": {
+          "Column": {
+            "Expression": {
+              "SourceRef": {
+                "Entity": "Relation"
+              }
+            },
+            "Property": "Relation"
+          }
+        },
+        "type": "Categorical",
+        "howCreated": "Drillthrough"
+      }
+    ]
+  }
+}

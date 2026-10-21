@@ -1,0 +1,69 @@
+/// Fait : retards prévus par le modèle ML_RailPulse_Delay sur les 14 prochains jours
+table Prévision
+
+	column trip_id
+		dataType: string
+		isHidden
+		summarizeBy: none
+		sourceColumn: trip_id
+
+	column date_key
+		dataType: int64
+		isHidden
+		summarizeBy: none
+		sourceColumn: date_key
+
+	column route_key
+		dataType: string
+		isHidden
+		summarizeBy: none
+		sourceColumn: route_key
+
+	column trainset_id
+		dataType: string
+		isHidden
+		summarizeBy: none
+		sourceColumn: trainset_id
+
+	column 'Départ prévu'
+		dataType: dateTime
+		formatString: dd/mm/yyyy hh:nn
+		summarizeBy: none
+		sourceColumn: scheduled_departure
+
+	column 'Sévérité météo'
+		dataType: double
+		formatString: 0
+		summarizeBy: none
+		sourceColumn: weather_severity
+
+	column 'Remplissage prévu'
+		dataType: double
+		formatString: 0 %
+		summarizeBy: none
+		sourceColumn: load_factor
+
+	column 'Retard prévu (min)'
+		dataType: double
+		formatString: 0.0
+		summarizeBy: none
+		sourceColumn: predicted_delay_min
+
+	column 'Niveau de risque'
+		dataType: string
+		summarizeBy: none
+		sourceColumn: risk_level
+
+	column 'Version du modèle'
+		dataType: int64
+		formatString: 0
+		summarizeBy: none
+		sourceColumn: model_version
+
+	partition Prévision = entity
+		mode: directLake
+		source
+			entityName: fact_delay_forecast
+			schemaName: dbo
+			expressionSource: DatabaseQuery
+

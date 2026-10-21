@@ -1,0 +1,265 @@
+{
+  "$schema": "https://developer.microsoft.com/json-schemas/fabric/item/report/definition/visualContainer/2.0.0/schema.json",
+  "name": "0d8c5f794353560f0304",
+  "position": {
+    "x": 16,
+    "y": 230,
+    "z": 2200,
+    "height": 374,
+    "width": 620
+  },
+  "visual": {
+    "visualType": "textbox",
+    "objects": {
+      "general": [
+        {
+          "properties": {
+            "paragraphs": [
+              {
+                "textRuns": [
+                  {
+                    "value": "Ce rapport raconte les douze derniers mois. Le présent se lit dans la salle de contrôle.",
+                    "textStyle": {
+                      "fontSize": "14pt",
+                      "color": "#0B1F3A",
+                      "fontFamily": "Segoe UI",
+                      "fontWeight": "bold"
+                    }
+                  }
+                ]
+              },
+              {
+                "textRuns": [
+                  {
+                    "value": " ",
+                    "textStyle": {
+                      "fontSize": "4pt",
+                      "color": "#5B6B82",
+                      "fontFamily": "Segoe UI"
+                    }
+                  }
+                ]
+              },
+              {
+                "textRuns": [
+                  {
+                    "value": "1 · Capter",
+                    "textStyle": {
+                      "fontSize": "11pt",
+                      "color": "#00A3A3",
+                      "fontFamily": "Segoe UI",
+                      "fontWeight": "bold"
+                    }
+                  }
+                ]
+              },
+              {
+                "textRuns": [
+                  {
+                    "value": "Chaque train en circulation envoie position, vitesse et retard toutes les 3 secondes vers Eventstream.",
+                    "textStyle": {
+                      "fontSize": "10pt",
+                      "color": "#5B6B82",
+                      "fontFamily": "Segoe UI"
+                    }
+                  }
+                ]
+              },
+              {
+                "textRuns": [
+                  {
+                    "value": "2 · Stocker",
+                    "textStyle": {
+                      "fontSize": "11pt",
+                      "color": "#00A3A3",
+                      "fontFamily": "Segoe UI",
+                      "fontWeight": "bold"
+                    }
+                  }
+                ]
+              },
+              {
+                "textRuns": [
+                  {
+                    "value": "L'Eventhouse ingère le flux dans la table live_telemetry, interrogeable à la seconde.",
+                    "textStyle": {
+                      "fontSize": "10pt",
+                      "color": "#5B6B82",
+                      "fontFamily": "Segoe UI"
+                    }
+                  }
+                ]
+              },
+              {
+                "textRuns": [
+                  {
+                    "value": "3 · Comprendre",
+                    "textStyle": {
+                      "fontSize": "11pt",
+                      "color": "#00A3A3",
+                      "fontFamily": "Segoe UI",
+                      "fontWeight": "bold"
+                    }
+                  }
+                ]
+              },
+              {
+                "textRuns": [
+                  {
+                    "value": "KQL calcule l'état du réseau minute par minute et isole les anomalies de vitesse et de retard.",
+                    "textStyle": {
+                      "fontSize": "10pt",
+                      "color": "#5B6B82",
+                      "fontFamily": "Segoe UI"
+                    }
+                  }
+                ]
+              },
+              {
+                "textRuns": [
+                  {
+                    "value": "4 · Agir",
+                    "textStyle": {
+                      "fontSize": "11pt",
+                      "color": "#00A3A3",
+                      "fontFamily": "Segoe UI",
+                      "fontWeight": "bold"
+                    }
+                  }
+                ]
+              },
+              {
+                "textRuns": [
+                  {
+                    "value": "Activator envoie un courriel dès qu'un train dépasse 15 minutes de retard, sans attendre personne.",
+                    "textStyle": {
+                      "fontSize": "10pt",
+                      "color": "#5B6B82",
+                      "fontFamily": "Segoe UI"
+                    }
+                  }
+                ]
+              },
+              {
+                "textRuns": [
+                  {
+                    "value": "5 · Anticiper",
+                    "textStyle": {
+                      "fontSize": "11pt",
+                      "color": "#00A3A3",
+                      "fontFamily": "Segoe UI",
+                      "fontWeight": "bold"
+                    }
+                  }
+                ]
+              },
+              {
+                "textRuns": [
+                  {
+                    "value": "Le modèle ML_RailPulse_Delay note chaque départ des 14 prochains jours : c'est lui qui alimente cette page.",
+                    "textStyle": {
+                      "fontSize": "10pt",
+                      "color": "#5B6B82",
+                      "fontFamily": "Segoe UI"
+                    }
+                  }
+                ]
+              }
+            ]
+          }
+        }
+      ]
+    },
+    "visualContainerObjects": {
+      "background": [
+        {
+          "properties": {
+            "show": {
+              "expr": {
+                "Literal": {
+                  "Value": "true"
+                }
+              }
+            },
+            "color": {
+              "solid": {
+                "color": {
+                  "expr": {
+                    "Literal": {
+                      "Value": "'#FFFFFF'"
+                    }
+                  }
+                }
+              }
+            },
+            "transparency": {
+              "expr": {
+                "Literal": {
+                  "Value": "0D"
+                }
+              }
+            }
+          }
+        }
+      ],
+      "border": [
+        {
+          "properties": {
+            "show": {
+              "expr": {
+                "Literal": {
+                  "Value": "true"
+                }
+              }
+            },
+            "color": {
+              "solid": {
+                "color": {
+                  "expr": {
+                    "Literal": {
+                      "Value": "'#E3E9F2'"
+                    }
+                  }
+                }
+              }
+            },
+            "radius": {
+              "expr": {
+                "Literal": {
+                  "Value": "12D"
+                }
+              }
+            }
+          }
+        }
+      ],
+      "padding": [
+        {
+          "properties": {
+            "top": {
+              "expr": {
+                "Literal": {
+                  "Value": "14D"
+                }
+              }
+            },
+            "left": {
+              "expr": {
+                "Literal": {
+                  "Value": "18D"
+                }
+              }
+            },
+            "right": {
+              "expr": {
+                "Literal": {
+                  "Value": "18D"
+                }
+              }
+            }
+          }
+        }
+      ]
+    }
+  }
+}

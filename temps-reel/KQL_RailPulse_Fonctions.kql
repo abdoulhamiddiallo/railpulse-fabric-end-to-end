@@ -1,0 +1,47 @@
+// RAILPULSE | EH_RailPulse | fonctions et vue matérialisée de la salle de contrôle
+// Exécutez chaque commande séparément dans un ensemble de requêtes KQL de la base EH_RailPulse.
+
+// 1. Horloge du réseau : horodatage du dernier signal reçu
+.create-or-alter function with (folder = "RailPulse", docstring = "Horodatage du dernier signal reçu") RailClock() {
+    toscalar(live_telemetry | summarize max(todatetime(event_time)))
+}
+
+// 2. Fenêtre glissante : télémétrie des N dernières minutes avant le dernier signal
+.create-or-alter function with (folder = "RailPulse", docstring = "Télémétrie des N dernières minutes") LiveWindow(minutes:int = 30) {
+    let c = RailClock();
+    live_telemetry
+    | extend ts = todatetime(event_time)
+    | where ts between ((c - minutes * 1m) .. c)
+}
+
+// 3. Réseau en direct : dernière position de chaque train, avec sa classe de retard
+.create-or-alter function with (folder = "RailPulse", docstring = "Dernière position de chaque train en circulation") LiveNetworkLatest() {
+    LiveWindow(5)
+    | summarize arg_max(ts, *) by train_id
+    | extend etat = case(delay_min > 15, "Retard critique", delay_min > 5, "En retard", "A l'heure"),
+             relation = strcat(origin, " > ", destination)
+}
+
+// 4. Variante en temps absolu (10 dernières minutes de l'horloge réelle)
+.create-or-alter function with (folder = "RailPulse", docstring = "Dernière position connue de chaque train") LiveNetworkNow() {
+    live_telemetry
+    | extend ts = todatetime(event_time)
+    | where ts > ago(10m)
+    | summarize arg_max(ts, *) by train_id
+}
+
+// 5. Vue matérialisée : retard moyen par ligne et par minute, tenue à jour en continu
+.create async materialized-view with (backfill = true) mv_line_minute on table live_telemetry {
+    live_telemetry
+    | summarize avg_delay = avg(delay_min), trains = dcount(train_id), events = count()
+        by line_code, minute = bin(todatetime(event_time), 1m)
+}
+
+// 6. Détection d'anomalies sur le retard de chaque ligne (30 dernières minutes)
+live_telemetry
+| extend ts = todatetime(event_time)
+| make-series retard = avg(delay_min) default = 0 on ts from ago(30m) to now() step 30s by line_code
+| extend anomalie = series_decompose_anomalies(retard, 2.5)
+| mv-expand ts to typeof(datetime), retard to typeof(double), anomalie to typeof(int)
+| where anomalie != 0
+| project ts, line_code, retard, anomalie

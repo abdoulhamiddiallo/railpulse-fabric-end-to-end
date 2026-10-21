@@ -1,0 +1,12 @@
+// Voyageurs et ponctualité par mois de l'exercice (octobre à septembre).
+EVALUATE
+SUMMARIZECOLUMNS(
+    'Mois'[Ordre],
+    'Mois'[Mois],
+    FILTER(ALL('Mois'[Mois]), NOT ISBLANK('Mois'[Mois])),
+    /*FILTRE_RELATION,*/
+    "Voyageurs", [Voyageurs],
+    "Ponctualité %", [Ponctualité %],
+    "Objectif ponctualité %", [Objectif ponctualité %]
+)
+ORDER BY 'Mois'[Ordre]

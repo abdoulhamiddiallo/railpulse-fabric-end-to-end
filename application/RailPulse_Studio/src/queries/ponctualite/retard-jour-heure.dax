@@ -1,0 +1,11 @@
+// Retard moyen par jour de semaine (lundi en premier) et heure de départ.
+EVALUATE
+SUMMARIZECOLUMNS(
+    'Date'[N° jour],
+    'Date'[Jour],
+    'Circulation'[Heure de départ],
+    /*FILTRE_RELATION,*/
+    "Retard moyen (min)", [Retard moyen (min)],
+    "Trains", [Trains]
+)
+ORDER BY 'Date'[N° jour], 'Circulation'[Heure de départ]

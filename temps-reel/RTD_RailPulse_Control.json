@@ -1,0 +1,354 @@
+{
+  "schema_version": 86,
+  "flavor": "RTDashboard_Regular",
+  "changeDetection": {
+    "kind": "liveUpdates",
+    "minRefreshRate": "30s",
+    "fallbackRefreshRate": "1m"
+  },
+  "tiles": [
+    {
+      "id": "1226af9d-5832-5052-9613-b54221909904",
+      "title": "Trains en circulation",
+      "visualType": "card",
+      "pageId": "d483a942-55b6-41bb-9fa9-1d95b2c17682",
+      "layout": {
+        "x": 0,
+        "y": 0,
+        "width": 4,
+        "height": 3
+      },
+      "queryRef": {
+        "kind": "query",
+        "queryId": "2cb0cb0e-0aba-5599-a6d5-9e11fa6ca30e"
+      },
+      "visualOptions": {}
+    },
+    {
+      "id": "d7320105-71b9-5ae3-a958-03eac10f35b6",
+      "title": "Retard moyen (min)",
+      "visualType": "card",
+      "pageId": "d483a942-55b6-41bb-9fa9-1d95b2c17682",
+      "layout": {
+        "x": 4,
+        "y": 0,
+        "width": 4,
+        "height": 3
+      },
+      "queryRef": {
+        "kind": "query",
+        "queryId": "9a7abb92-b857-54af-827f-b4f706942ba7"
+      },
+      "visualOptions": {}
+    },
+    {
+      "id": "74b135d4-8724-524f-a5d0-fa8e90057ebd",
+      "title": "Retards critiques (> 15 min)",
+      "visualType": "card",
+      "pageId": "d483a942-55b6-41bb-9fa9-1d95b2c17682",
+      "layout": {
+        "x": 8,
+        "y": 0,
+        "width": 4,
+        "height": 3
+      },
+      "queryRef": {
+        "kind": "query",
+        "queryId": "e65aee8a-ca8e-5c67-bb0a-d2f4759fb4ee"
+      },
+      "visualOptions": {}
+    },
+    {
+      "id": "6be7894b-4d9d-5dc1-a5a4-16dd2cc06053",
+      "title": "Vitesse moyenne (km/h)",
+      "visualType": "card",
+      "pageId": "d483a942-55b6-41bb-9fa9-1d95b2c17682",
+      "layout": {
+        "x": 12,
+        "y": 0,
+        "width": 4,
+        "height": 3
+      },
+      "queryRef": {
+        "kind": "query",
+        "queryId": "d3adb2c4-a2e3-5343-839a-195fc1bcb6d4"
+      },
+      "visualOptions": {}
+    },
+    {
+      "id": "99d084c7-805a-5163-95d5-e843f430c2bb",
+      "title": "Voyageurs à bord",
+      "visualType": "card",
+      "pageId": "d483a942-55b6-41bb-9fa9-1d95b2c17682",
+      "layout": {
+        "x": 16,
+        "y": 0,
+        "width": 4,
+        "height": 3
+      },
+      "queryRef": {
+        "kind": "query",
+        "queryId": "2c1d23e0-8b06-5745-9f53-df3a2874c6be"
+      },
+      "visualOptions": {}
+    },
+    {
+      "id": "cbdc1a1b-88b2-5596-93ed-18db8b23fc03",
+      "title": "Dernier signal reçu",
+      "visualType": "card",
+      "pageId": "d483a942-55b6-41bb-9fa9-1d95b2c17682",
+      "layout": {
+        "x": 20,
+        "y": 0,
+        "width": 4,
+        "height": 3
+      },
+      "queryRef": {
+        "kind": "query",
+        "queryId": "115fbac8-74fd-546a-a95f-e20fab678e59"
+      },
+      "visualOptions": {}
+    },
+    {
+      "id": "e9a23f28-f162-50a7-978c-7ae4f656955d",
+      "title": "Carte du réseau : dernière position de chaque train (taille = retard)",
+      "visualType": "map",
+      "pageId": "d483a942-55b6-41bb-9fa9-1d95b2c17682",
+      "layout": {
+        "x": 0,
+        "y": 3,
+        "width": 14,
+        "height": 11
+      },
+      "queryRef": {
+        "kind": "query",
+        "queryId": "9a7d711b-d69f-50f7-9f43-8d7110d8125e"
+      },
+      "visualOptions": {
+        "map__type": "bubble",
+        "map__latitudeColumn": "latitude",
+        "map__longitudeColumn": "longitude",
+        "map__labelColumn": "Train",
+        "map__sizeColumn": "Retard (min)",
+        "map__sizeDisabled": false,
+        "map__geoType": "numeric",
+        "map__geoPointColumn": null
+      }
+    },
+    {
+      "id": "02d782d4-402e-59d0-85ae-5471e48ff3ca",
+      "title": "Trains à surveiller",
+      "visualType": "table",
+      "pageId": "d483a942-55b6-41bb-9fa9-1d95b2c17682",
+      "layout": {
+        "x": 14,
+        "y": 3,
+        "width": 10,
+        "height": 11
+      },
+      "queryRef": {
+        "kind": "query",
+        "queryId": "f6e66dee-7db6-5435-a7c6-580dceec22cf"
+      },
+      "visualOptions": {}
+    },
+    {
+      "id": "66f77736-5d87-528b-b443-a2b5ad90ab87",
+      "title": "Retard moyen par ligne, minute par minute (30 dernières minutes)",
+      "visualType": "timechart",
+      "pageId": "d483a942-55b6-41bb-9fa9-1d95b2c17682",
+      "layout": {
+        "x": 0,
+        "y": 14,
+        "width": 12,
+        "height": 8
+      },
+      "queryRef": {
+        "kind": "query",
+        "queryId": "14de8919-d1b7-5ed0-91db-985ec41a98cf"
+      },
+      "visualOptions": {}
+    },
+    {
+      "id": "1e9c0634-ab36-5582-b98a-88cd956acde2",
+      "title": "Retard moyen par ligne (min)",
+      "visualType": "bar",
+      "pageId": "d483a942-55b6-41bb-9fa9-1d95b2c17682",
+      "layout": {
+        "x": 12,
+        "y": 14,
+        "width": 6,
+        "height": 8
+      },
+      "queryRef": {
+        "kind": "query",
+        "queryId": "1e8dec29-401d-55bc-a18b-69bb3c564224"
+      },
+      "visualOptions": {}
+    },
+    {
+      "id": "e187be6b-0211-597d-a0b7-411b4c912bfa",
+      "title": "Trains par état",
+      "visualType": "pie",
+      "pageId": "d483a942-55b6-41bb-9fa9-1d95b2c17682",
+      "layout": {
+        "x": 18,
+        "y": 14,
+        "width": 6,
+        "height": 8
+      },
+      "queryRef": {
+        "kind": "query",
+        "queryId": "24d91bad-ffda-58fd-97ab-27297916dabb"
+      },
+      "visualOptions": {}
+    },
+    {
+      "id": "31f6c5e1-3b09-5d81-9aae-d638de28d9b3",
+      "title": "Arrêts en pleine voie (vitesse < 20 km/h hors gares, 10 dernières minutes)",
+      "visualType": "table",
+      "pageId": "d483a942-55b6-41bb-9fa9-1d95b2c17682",
+      "layout": {
+        "x": 0,
+        "y": 22,
+        "width": 24,
+        "height": 6
+      },
+      "queryRef": {
+        "kind": "query",
+        "queryId": "4f2ec7f1-4278-5c5f-860e-c056afd6b36b"
+      },
+      "visualOptions": {}
+    }
+  ],
+  "baseQueries": [],
+  "parameters": [],
+  "dataSources": [
+    {
+      "kind": "kusto-trident",
+      "clusterUri": "<URI_DE_REQUETE_EH_RailPulse>",
+      "name": "EH_RailPulse",
+      "databaseArtifactId": "<ID_BASE_KQL_EH_RailPulse>",
+      "database": "<ID_BASE_KQL_EH_RailPulse>",
+      "workspace": "00000000-0000-0000-0000-000000000000",
+      "id": "5515560d-1501-4811-a02a-056033d4413e"
+    }
+  ],
+  "pages": [
+    {
+      "name": "Salle de contrôle",
+      "id": "d483a942-55b6-41bb-9fa9-1d95b2c17682"
+    }
+  ],
+  "queries": [
+    {
+      "dataSource": {
+        "kind": "inline",
+        "dataSourceId": "5515560d-1501-4811-a02a-056033d4413e"
+      },
+      "text": "LiveNetworkLatest() | summarize [\"Trains\"] = count()",
+      "id": "2cb0cb0e-0aba-5599-a6d5-9e11fa6ca30e",
+      "usedVariables": []
+    },
+    {
+      "dataSource": {
+        "kind": "inline",
+        "dataSourceId": "5515560d-1501-4811-a02a-056033d4413e"
+      },
+      "text": "LiveNetworkLatest() | summarize [\"Retard moyen (min)\"] = round(avg(delay_min), 1)",
+      "id": "9a7abb92-b857-54af-827f-b4f706942ba7",
+      "usedVariables": []
+    },
+    {
+      "dataSource": {
+        "kind": "inline",
+        "dataSourceId": "5515560d-1501-4811-a02a-056033d4413e"
+      },
+      "text": "LiveNetworkLatest() | summarize [\"Trains\"] = countif(delay_min > 15)",
+      "id": "e65aee8a-ca8e-5c67-bb0a-d2f4759fb4ee",
+      "usedVariables": []
+    },
+    {
+      "dataSource": {
+        "kind": "inline",
+        "dataSourceId": "5515560d-1501-4811-a02a-056033d4413e"
+      },
+      "text": "LiveNetworkLatest() | summarize [\"km/h\"] = round(avg(speed_kmh), 0)",
+      "id": "d3adb2c4-a2e3-5343-839a-195fc1bcb6d4",
+      "usedVariables": []
+    },
+    {
+      "dataSource": {
+        "kind": "inline",
+        "dataSourceId": "5515560d-1501-4811-a02a-056033d4413e"
+      },
+      "text": "LiveNetworkLatest() | summarize [\"Voyageurs\"] = sum(passengers)",
+      "id": "2c1d23e0-8b06-5745-9f53-df3a2874c6be",
+      "usedVariables": []
+    },
+    {
+      "dataSource": {
+        "kind": "inline",
+        "dataSourceId": "5515560d-1501-4811-a02a-056033d4413e"
+      },
+      "text": "print [\"Heure\"] = iff(now() - RailClock() < 2m, \"EN DIRECT\", format_datetime(datetime_utc_to_local(RailClock(), \"Europe/Paris\"), \"HH:mm\"))",
+      "id": "115fbac8-74fd-546a-a95f-e20fab678e59",
+      "usedVariables": []
+    },
+    {
+      "dataSource": {
+        "kind": "inline",
+        "dataSourceId": "5515560d-1501-4811-a02a-056033d4413e"
+      },
+      "text": "LiveNetworkLatest() | project latitude, longitude, Train = strcat(train_id, \" · \", line_code, \" · \", delay_min, \" min\"), [\"Retard (min)\"] = delay_min",
+      "id": "9a7d711b-d69f-50f7-9f43-8d7110d8125e",
+      "usedVariables": []
+    },
+    {
+      "dataSource": {
+        "kind": "inline",
+        "dataSourceId": "5515560d-1501-4811-a02a-056033d4413e"
+      },
+      "text": "LiveNetworkLatest() | where delay_min > 5 | order by delay_min desc | project Train = train_id, Ligne = line_code, Relation = relation, [\"Retard (min)\"] = delay_min, [\"Vitesse (km/h)\"] = speed_kmh, Avancement = strcat(round(progress_pct, 0), \" %\"), [\"État\"] = etat",
+      "id": "f6e66dee-7db6-5435-a7c6-580dceec22cf",
+      "usedVariables": []
+    },
+    {
+      "dataSource": {
+        "kind": "inline",
+        "dataSourceId": "5515560d-1501-4811-a02a-056033d4413e"
+      },
+      "text": "LiveWindow(30) | summarize [\"Retard moyen (min)\"] = round(avg(delay_min), 1) by Minute = bin(ts, 1m), Ligne = line_code | order by Minute asc",
+      "id": "14de8919-d1b7-5ed0-91db-985ec41a98cf",
+      "usedVariables": []
+    },
+    {
+      "dataSource": {
+        "kind": "inline",
+        "dataSourceId": "5515560d-1501-4811-a02a-056033d4413e"
+      },
+      "text": "LiveNetworkLatest() | summarize [\"Retard moyen (min)\"] = round(avg(delay_min), 1) by Ligne = line_code | order by [\"Retard moyen (min)\"] desc",
+      "id": "1e8dec29-401d-55bc-a18b-69bb3c564224",
+      "usedVariables": []
+    },
+    {
+      "dataSource": {
+        "kind": "inline",
+        "dataSourceId": "5515560d-1501-4811-a02a-056033d4413e"
+      },
+      "text": "LiveNetworkLatest() | summarize Trains = count() by [\"État\"] = etat",
+      "id": "24d91bad-ffda-58fd-97ab-27297916dabb",
+      "usedVariables": []
+    },
+    {
+      "dataSource": {
+        "kind": "inline",
+        "dataSourceId": "5515560d-1501-4811-a02a-056033d4413e"
+      },
+      "text": "LiveWindow(10) | where speed_kmh < 20 and progress_pct between (5.0 .. 95.0) | summarize arg_max(ts, *) by train_id | project [\"Heure\"] = format_datetime(datetime_utc_to_local(ts, \"Europe/Paris\"), \"HH:mm:ss\"), Train = train_id, Ligne = line_code, Relation = strcat(origin, \" > \", destination), [\"Vitesse (km/h)\"] = speed_kmh, [\"Retard (min)\"] = delay_min, Latitude = round(latitude, 4), Longitude = round(longitude, 4) | order by [\"Retard (min)\"] desc",
+      "id": "4f2ec7f1-4278-5c5f-860e-c056afd6b36b",
+      "usedVariables": []
+    }
+  ],
+  "embeddedApps": []
+}

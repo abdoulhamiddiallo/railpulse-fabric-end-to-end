@@ -1,0 +1,71 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1000 480" font-family="Inter, sans-serif">
+<defs><marker id="ah9AA8BC" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0,0 L10,5 L0,10 z" fill="#9AA8BC"/></marker><marker id="ah00A3A3" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0,0 L10,5 L0,10 z" fill="#00A3A3"/></marker><marker id="ah0F6CBD" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0,0 L10,5 L0,10 z" fill="#0F6CBD"/></marker><marker id="ah2E8B57" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0,0 L10,5 L0,10 z" fill="#2E8B57"/></marker><marker id="ah7B4FE0" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0,0 L10,5 L0,10 z" fill="#7B4FE0"/></marker><marker id="ahE8590C" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0,0 L10,5 L0,10 z" fill="#E8590C"/></marker><marker id="ahC99200" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0,0 L10,5 L0,10 z" fill="#C99200"/></marker><marker id="ah3B5BDB" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0,0 L10,5 L0,10 z" fill="#3B5BDB"/></marker><marker id="ah2B8A3E" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0,0 L10,5 L0,10 z" fill="#2B8A3E"/></marker><marker id="ahE03131" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0,0 L10,5 L0,10 z" fill="#E03131"/></marker><marker id="ah0B1F3A" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0,0 L10,5 L0,10 z" fill="#0B1F3A"/></marker><filter id="sh" x="-10%" y="-10%" width="120%" height="130%"><feDropShadow dx="0" dy="2" stdDeviation="3" flood-color="#0B1F3A" flood-opacity=".12"/></filter><linearGradient id="gGold" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#FFF6DA"/><stop offset="1" stop-color="#FFFFFF"/></linearGradient></defs>
+<rect x="4" y="4" width="992" height="472" rx="18" fill="#FBF8EE"/>
+<text x="22" y="30" font-size="9.5" font-weight="800" fill="#C99200" letter-spacing="1.4">SM_RAILPULSE · SCHÉMA EN ÉTOILE · DIRECT LAKE</text>
+<path d="M 160 186 L 160 160 L 300 160 L 300 112" stroke="#3B5BDB" stroke-width="1.9" fill="none" marker-end="url(#ah3B5BDB)"/><text x="152" y="182" font-size="11" font-weight="800" fill="#3B5BDB" text-anchor="middle">*</text><text x="308" y="124" font-size="9.5" font-weight="800" fill="#3B5BDB" text-anchor="middle">1</text>
+<path d="M 385 186 L 385 112" stroke="#3B5BDB" stroke-width="1.9" fill="none" marker-end="url(#ah3B5BDB)"/><text x="377" y="182" font-size="11" font-weight="800" fill="#3B5BDB" text-anchor="middle">*</text><text x="393" y="124" font-size="9.5" font-weight="800" fill="#3B5BDB" text-anchor="middle">1</text>
+<path d="M 635 186 L 635 112" stroke="#3B5BDB" stroke-width="1.9" fill="none" marker-end="url(#ah3B5BDB)"/><text x="627" y="182" font-size="11" font-weight="800" fill="#3B5BDB" text-anchor="middle">*</text><text x="643" y="124" font-size="9.5" font-weight="800" fill="#3B5BDB" text-anchor="middle">1</text>
+<path d="M 160 260 L 160 300 L 370 300 L 370 338" stroke="#3B5BDB" stroke-width="1.9" fill="none" marker-end="url(#ah3B5BDB)"/><text x="152" y="274" font-size="11" font-weight="800" fill="#3B5BDB" text-anchor="middle">*</text><text x="378" y="330" font-size="9.5" font-weight="800" fill="#3B5BDB" text-anchor="middle">1</text>
+<path d="M 430 260 L 430 338" stroke="#3B5BDB" stroke-width="1.9" fill="none" marker-end="url(#ah3B5BDB)"/><text x="422" y="274" font-size="11" font-weight="800" fill="#3B5BDB" text-anchor="middle">*</text><text x="438" y="330" font-size="9.5" font-weight="800" fill="#3B5BDB" text-anchor="middle">1</text>
+<path d="M 640 260 L 640 338" stroke="#3B5BDB" stroke-width="1.9" fill="none" marker-end="url(#ah3B5BDB)"/><text x="632" y="274" font-size="11" font-weight="800" fill="#3B5BDB" text-anchor="middle">*</text><text x="648" y="330" font-size="9.5" font-weight="800" fill="#3B5BDB" text-anchor="middle">1</text>
+<path d="M 740 223 L 798 223" stroke="#3B5BDB" stroke-width="1.9" fill="none" marker-end="url(#ah3B5BDB)"/><text x="748" y="216" font-size="11" font-weight="800" fill="#3B5BDB" text-anchor="middle">*</text><text x="790" y="216" font-size="9.5" font-weight="800" fill="#3B5BDB" text-anchor="middle">1</text>
+<path d="M 60 260 L 60 452 L 888 452 L 888 262" stroke="#3B5BDB" stroke-width="1.9" fill="none" marker-end="url(#ah3B5BDB)"/><text x="52" y="274" font-size="11" font-weight="800" fill="#3B5BDB" text-anchor="middle">*</text><text x="896" y="274" font-size="9.5" font-weight="800" fill="#3B5BDB" text-anchor="middle">1</text>
+<path d="M 340 372 L 282 372" stroke="#3B5BDB" stroke-width="1.9" fill="none" marker-end="url(#ah3B5BDB)"/><text x="332" y="366" font-size="11" font-weight="800" fill="#3B5BDB" text-anchor="middle">*</text><text x="290" y="366" font-size="9.5" font-weight="800" fill="#3B5BDB" text-anchor="middle">1</text>
+<g filter="url(#sh)"><rect x="24" y="50" width="170" height="74" rx="11" fill="#fff" stroke="#7B4FE0" stroke-width="1.6"/></g>
+<path d="M24 61 a11 11 0 0 1 11 -11 h148 a11 11 0 0 1 11 11 v23 h-170 z" fill="#7B4FE0"/>
+<text x="35" y="65" font-size="7.6" font-weight="800" fill="#fff" fill-opacity=".88" letter-spacing=".8">TABLE DE MESURES</text>
+<text x="35" y="79" font-size="11.2" font-weight="800" fill="#fff">_Mesures</text>
+<text x="184" y="79" font-size="8" fill="#fff" fill-opacity=".88" text-anchor="end">mesures</text>
+<text x="35" y="98" font-size="9" fill="#7B4FE0" font-weight="700">32 mesures DAX</text>
+<text x="35" y="112" font-size="9" fill="#0B1F3A" font-weight="400">5 dossiers d&#x27;affichage</text>
+<g filter="url(#sh)"><rect x="240" y="50" width="520" height="74" rx="11" fill="#fff" stroke="#3B5BDB" stroke-width="1.6"/></g>
+<path d="M240 61 a11 11 0 0 1 11 -11 h498 a11 11 0 0 1 11 11 v23 h-520 z" fill="#3B5BDB"/>
+<text x="251" y="65" font-size="7.6" font-weight="800" fill="#fff" fill-opacity=".88" letter-spacing=".8">DIMENSION · TABLE DE DATES · 457 JOURS</text>
+<text x="251" y="79" font-size="11.2" font-weight="800" fill="#fff">Date</text>
+<text x="750" y="79" font-size="8" fill="#fff" fill-opacity=".88" text-anchor="end">dim_date</text>
+<text x="251" y="98" font-size="9" fill="#3B5BDB" font-weight="700">date_key</text>
+<text x="251" y="112" font-size="9" fill="#0B1F3A" font-weight="400">Date · Année · Mois (trié par année-mois) · Jour (trié lundi à dimanche) · Week-end</text>
+<g filter="url(#sh)"><rect x="40" y="186" width="200" height="74" rx="11" fill="#fff" stroke="#C99200" stroke-width="1.6"/></g>
+<path d="M40 197 a11 11 0 0 1 11 -11 h178 a11 11 0 0 1 11 11 v23 h-200 z" fill="#C99200"/>
+<text x="51" y="201" font-size="7.6" font-weight="800" fill="#fff" fill-opacity=".88" letter-spacing=".8">FAIT · 98 485 TRAINS</text>
+<text x="51" y="215" font-size="11.2" font-weight="800" fill="#fff">Circulation</text>
+<text x="230" y="215" font-size="8" fill="#fff" fill-opacity=".88" text-anchor="end">fact_trip</text>
+<text x="51" y="234" font-size="9" fill="#C99200" font-weight="700">date_key · route_key · trainset_id</text>
+<text x="51" y="248" font-size="9" fill="#0B1F3A" font-weight="400">Départ prévu · Heure de départ</text>
+<g filter="url(#sh)"><rect x="290" y="186" width="190" height="74" rx="11" fill="#fff" stroke="#C99200" stroke-width="1.6"/></g>
+<path d="M290 197 a11 11 0 0 1 11 -11 h168 a11 11 0 0 1 11 11 v23 h-190 z" fill="#C99200"/>
+<text x="301" y="201" font-size="7.6" font-weight="800" fill="#fff" fill-opacity=".88" letter-spacing=".8">FAIT · 780 586 LIGNES</text>
+<text x="301" y="215" font-size="11.2" font-weight="800" fill="#fff">Réservation</text>
+<text x="470" y="215" font-size="8" fill="#fff" fill-opacity=".88" text-anchor="end">fact_booking</text>
+<text x="301" y="234" font-size="9" fill="#C99200" font-weight="700">date_key · route_key</text>
+<text x="301" y="248" font-size="9" fill="#0B1F3A" font-weight="400">Classe · Canal</text>
+<g filter="url(#sh)"><rect x="530" y="186" width="210" height="74" rx="11" fill="#fff" stroke="#C99200" stroke-width="1.6"/></g>
+<path d="M530 197 a11 11 0 0 1 11 -11 h188 a11 11 0 0 1 11 11 v23 h-210 z" fill="#C99200"/>
+<text x="541" y="201" font-size="7.6" font-weight="800" fill="#fff" fill-opacity=".88" letter-spacing=".8">FAIT · 3 780 PRÉVISIONS</text>
+<text x="541" y="215" font-size="11.2" font-weight="800" fill="#fff">Prévision</text>
+<text x="730" y="215" font-size="8" fill="#fff" fill-opacity=".88" text-anchor="end">fact_delay_forecast</text>
+<text x="541" y="234" font-size="9" fill="#C99200" font-weight="700">date_key · route_key · trainset_id</text>
+<text x="541" y="248" font-size="9" fill="#0B1F3A" font-weight="400">Retard prévu · Niveau de risque</text>
+<g filter="url(#sh)"><rect x="800" y="186" width="176" height="74" rx="11" fill="#fff" stroke="#3B5BDB" stroke-width="1.6"/></g>
+<path d="M800 197 a11 11 0 0 1 11 -11 h154 a11 11 0 0 1 11 11 v23 h-176 z" fill="#3B5BDB"/>
+<text x="811" y="201" font-size="7.6" font-weight="800" fill="#fff" fill-opacity=".88" letter-spacing=".8">DIMENSION · 40 RAMES</text>
+<text x="811" y="215" font-size="11.2" font-weight="800" fill="#fff">Rame</text>
+<text x="966" y="215" font-size="8" fill="#fff" fill-opacity=".88" text-anchor="end">dim_trainset</text>
+<text x="811" y="234" font-size="9" fill="#3B5BDB" font-weight="700">trainset_id</text>
+<text x="811" y="248" font-size="9" fill="#0B1F3A" font-weight="400">Série · Mise en service · Âge</text>
+<g filter="url(#sh)"><rect x="100" y="340" width="180" height="74" rx="11" fill="#fff" stroke="#3B5BDB" stroke-width="1.6"/></g>
+<path d="M100 351 a11 11 0 0 1 11 -11 h158 a11 11 0 0 1 11 11 v23 h-180 z" fill="#3B5BDB"/>
+<text x="111" y="355" font-size="7.6" font-weight="800" fill="#fff" fill-opacity=".88" letter-spacing=".8">DIMENSION · 12 GARES</text>
+<text x="111" y="369" font-size="11.2" font-weight="800" fill="#fff">Gare</text>
+<text x="270" y="369" font-size="8" fill="#fff" fill-opacity=".88" text-anchor="end">dim_station</text>
+<text x="111" y="388" font-size="9" fill="#3B5BDB" font-weight="700">station_code</text>
+<text x="111" y="402" font-size="9" fill="#0B1F3A" font-weight="400">Gare · Ville · Pays · GPS</text>
+<g filter="url(#sh)"><rect x="340" y="340" width="360" height="74" rx="11" fill="#fff" stroke="#3B5BDB" stroke-width="1.6"/></g>
+<path d="M340 351 a11 11 0 0 1 11 -11 h338 a11 11 0 0 1 11 11 v23 h-360 z" fill="#3B5BDB"/>
+<text x="351" y="355" font-size="7.6" font-weight="800" fill="#fff" fill-opacity=".88" letter-spacing=".8">DIMENSION · 24 RELATIONS</text>
+<text x="351" y="369" font-size="11.2" font-weight="800" fill="#fff">Relation</text>
+<text x="690" y="369" font-size="8" fill="#fff" fill-opacity=".88" text-anchor="end">dim_route</text>
+<text x="351" y="388" font-size="9" fill="#3B5BDB" font-weight="700">route_key · origin</text>
+<text x="351" y="402" font-size="9" fill="#0B1F3A" font-weight="400">Ligne · Relation · Distance (km) · Transfrontalière</text>
+<text x="300" y="444" font-size="8.6" fill="#5B6B82">* = plusieurs (côté fait) · 1 = un (côté dimension) · filtrage dans un seul sens</text>
+</svg>

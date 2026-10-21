@@ -1,0 +1,11 @@
+// Classement des 24 relations par ponctualité, avec l'objectif du réseau.
+EVALUATE
+SUMMARIZECOLUMNS(
+    'Relation'[Relation],
+    'Relation'[Ligne],
+    "Ponctualité %", [Ponctualité %],
+    "Retard moyen (min)", [Retard moyen (min)],
+    "Trains assurés", [Trains assurés],
+    "Objectif ponctualité %", [Objectif ponctualité %]
+)
+ORDER BY [Ponctualité %] DESC

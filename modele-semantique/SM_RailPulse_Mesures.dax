@@ -1,0 +1,57 @@
+// RAILPULSE | SM_RailPulse | 32 mesures en une seule requête DAX
+// Vue Requête DAX du modèle : collez tout, exécutez, puis « Mettre à jour le modèle avec les modifications ».
+DEFINE
+    // ---- 01 Volumes ----
+    MEASURE '_Mesures'[Trains] = COUNTROWS ( Circulation )
+    MEASURE '_Mesures'[Trains assurés] = CALCULATE ( [Trains], Circulation[is_cancelled] = FALSE () )
+    MEASURE '_Mesures'[Trains annulés] = CALCULATE ( [Trains], Circulation[is_cancelled] = TRUE () )
+    MEASURE '_Mesures'[Voyageurs] = SUM ( Circulation[passengers] )
+    MEASURE '_Mesures'[Voyageurs-km] = SUM ( Circulation[passenger_km] )
+    MEASURE '_Mesures'[Sièges offerts] = CALCULATE ( SUM ( Circulation[seats] ), Circulation[is_cancelled] = FALSE () )
+    MEASURE '_Mesures'[Taux de remplissage %] = DIVIDE ( [Voyageurs], [Sièges offerts] )
+    MEASURE '_Mesures'[Voyageurs mois précédent] = CALCULATE ( [Voyageurs], DATEADD ( 'Date'[Date], -1, MONTH ) )
+    MEASURE '_Mesures'[Évolution voyageurs %] =
+        VAR _prec = [Voyageurs mois précédent]
+        RETURN IF ( NOT ISBLANK ( _prec ), DIVIDE ( [Voyageurs] - _prec, _prec ) )
+    // ---- 02 Qualité de service ----
+    MEASURE '_Mesures'[Trains à l'heure] = CALCULATE ( [Trains], Circulation[is_on_time] = TRUE () )
+    MEASURE '_Mesures'[Ponctualité %] = DIVIDE ( [Trains à l'heure], [Trains assurés] )
+    MEASURE '_Mesures'[Objectif ponctualité %] = IF ( NOT ISBLANK ( [Trains assurés] ), 0.77 )
+    MEASURE '_Mesures'[Écart à l'objectif (pts)] =
+        IF ( NOT ISBLANK ( [Ponctualité %] ), ( [Ponctualité %] - [Objectif ponctualité %] ) * 100 )
+    MEASURE '_Mesures'[Retard moyen (min)] =
+        CALCULATE ( AVERAGE ( Circulation[arrival_delay_min] ), Circulation[is_cancelled] = FALSE () )
+    MEASURE '_Mesures'[Trains en retard > 15 min] = CALCULATE ( [Trains], Circulation[arrival_delay_min] > 15 )
+    MEASURE '_Mesures'[Taux d'annulation %] = DIVIDE ( [Trains annulés], [Trains] )
+    // ---- 03 Finance ----
+    MEASURE '_Mesures'[Chiffre d'affaires] = SUM ( Circulation[revenue_eur] )
+    MEASURE '_Mesures'[Chiffre d'affaires (M€)] = DIVIDE ( [Chiffre d'affaires], 1000000 )
+    MEASURE '_Mesures'[Recette par voyageur] = DIVIDE ( [Chiffre d'affaires], [Voyageurs] )
+    MEASURE '_Mesures'[Recette par voyageur-km] = DIVIDE ( [Chiffre d'affaires], [Voyageurs-km] )
+    MEASURE '_Mesures'[CA réservations] = SUM ( 'Réservation'[revenue_eur] )
+    MEASURE '_Mesures'[Voyageurs réservations] = SUM ( 'Réservation'[passengers] )
+    MEASURE '_Mesures'[Part 1re classe %] =
+        DIVIDE ( CALCULATE ( [CA réservations], 'Réservation'[Classe] = "1re classe" ), [CA réservations] )
+    MEASURE '_Mesures'[Anticipation moyenne (jours)] =
+        DIVIDE ( SUMX ( 'Réservation', 'Réservation'[avg_lead_days] * 'Réservation'[passengers] ), [Voyageurs réservations] )
+    // ---- 04 Climat ----
+    MEASURE '_Mesures'[CO2 évité (t)] = DIVIDE ( SUM ( Circulation[co2_avoided_kg] ), 1000 )
+    MEASURE '_Mesures'[CO2 évité par voyageur (kg)] = DIVIDE ( SUM ( Circulation[co2_avoided_kg] ), [Voyageurs] )
+    MEASURE '_Mesures'[Tours de la Terre en voiture évités] = DIVIDE ( [CO2 évité (t)] * 1000000, 120 * 40075 )
+    // ---- 05 Prévisions ----
+    MEASURE '_Mesures'[Trains prévus] = COUNTROWS ( 'Prévision' )
+    MEASURE '_Mesures'[Retard prévu moyen (min)] = AVERAGE ( 'Prévision'[Retard prévu (min)] )
+    MEASURE '_Mesures'[Trains à risque élevé] = CALCULATE ( [Trains prévus], 'Prévision'[Niveau de risque] = "ÉLEVÉ" )
+    MEASURE '_Mesures'[Part à risque élevé %] = DIVIDE ( [Trains à risque élevé], [Trains prévus] )
+    // ---- 99 Mise en forme ----
+    MEASURE '_Mesures'[Couleur ponctualité] =
+        VAR _p = [Ponctualité %]
+        RETURN SWITCH ( TRUE (), ISBLANK ( _p ), "#C9D3E0", _p >= 0.77, "#1F9D74", _p >= 0.74, "#E8A33D", "#D64545" )
+EVALUATE
+    ROW (
+        "Voyageurs", [Voyageurs],
+        "Chiffre d'affaires (M€)", [Chiffre d'affaires (M€)],
+        "Ponctualité %", [Ponctualité %],
+        "CO2 évité (t)", [CO2 évité (t)],
+        "Trains prévus", [Trains prévus]
+    )

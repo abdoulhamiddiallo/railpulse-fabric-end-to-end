@@ -1,0 +1,100 @@
+/// Fait : un train exploité
+table Circulation
+
+	column trip_id
+		dataType: string
+		isHidden
+		summarizeBy: none
+		sourceColumn: trip_id
+
+	column date_key
+		dataType: int64
+		isHidden
+		summarizeBy: none
+		sourceColumn: date_key
+
+	column route_key
+		dataType: string
+		isHidden
+		summarizeBy: none
+		sourceColumn: route_key
+
+	column trainset_id
+		dataType: string
+		isHidden
+		summarizeBy: none
+		sourceColumn: trainset_id
+
+	column 'Départ prévu'
+		dataType: dateTime
+		formatString: dd/mm/yyyy hh:nn
+		summarizeBy: none
+		sourceColumn: scheduled_departure
+
+	column 'Heure de départ'
+		dataType: int64
+		formatString: 0
+		summarizeBy: none
+		sourceColumn: dep_hour
+
+	column is_peak
+		dataType: int64
+		isHidden
+		summarizeBy: none
+		sourceColumn: is_peak
+
+	column is_cancelled
+		dataType: boolean
+		isHidden
+		summarizeBy: none
+		sourceColumn: is_cancelled
+
+	column arrival_delay_min
+		dataType: int64
+		isHidden
+		summarizeBy: none
+		sourceColumn: arrival_delay_min
+
+	column is_on_time
+		dataType: boolean
+		isHidden
+		summarizeBy: none
+		sourceColumn: is_on_time
+
+	column seats
+		dataType: int64
+		isHidden
+		summarizeBy: none
+		sourceColumn: seats
+
+	column passengers
+		dataType: int64
+		isHidden
+		summarizeBy: none
+		sourceColumn: passengers
+
+	column revenue_eur
+		dataType: decimal
+		isHidden
+		summarizeBy: none
+		sourceColumn: revenue_eur
+
+	column passenger_km
+		dataType: int64
+		isHidden
+		summarizeBy: none
+		sourceColumn: passenger_km
+
+	column co2_avoided_kg
+		dataType: decimal
+		isHidden
+		summarizeBy: none
+		sourceColumn: co2_avoided_kg
+
+	partition Circulation = entity
+		mode: directLake
+		source
+			entityName: fact_trip
+			schemaName: dbo
+			expressionSource: DatabaseQuery
+

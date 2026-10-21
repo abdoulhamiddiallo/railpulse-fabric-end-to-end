@@ -1,0 +1,32 @@
+/// Les 40 rames du parc
+table Rame
+
+	column Rame
+		dataType: string
+		summarizeBy: none
+		sourceColumn: trainset_id
+
+	column Série
+		dataType: string
+		summarizeBy: none
+		sourceColumn: series
+
+	column 'Mise en service'
+		dataType: int64
+		formatString: 0
+		summarizeBy: none
+		sourceColumn: commissioning_year
+
+	column 'Âge de la rame (ans)'
+		dataType: int64
+		formatString: 0
+		summarizeBy: none
+		sourceColumn: trainset_age
+
+	partition Rame = entity
+		mode: directLake
+		source
+			entityName: dim_trainset
+			schemaName: dbo
+			expressionSource: DatabaseQuery
+

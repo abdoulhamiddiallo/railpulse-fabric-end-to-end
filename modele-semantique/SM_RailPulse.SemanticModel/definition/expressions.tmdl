@@ -1,0 +1,8 @@
+expression DatabaseQuery =
+		let
+		    database = AzureStorage.DataLake("https://onelake.dfs.fabric.microsoft.com/<ID_ESPACE_DE_TRAVAIL>/<ID_ENTREPOT_WH_RailPulse_Gold>", [HierarchicalNavigation=true])
+		in
+		    database
+
+	annotation PBI_IncludeFutureArtifacts = False
+

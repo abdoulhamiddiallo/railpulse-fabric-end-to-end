@@ -1,0 +1,296 @@
+/// Table de rangement de toutes les mesures
+table _Mesures
+
+	/// Nombre de trains programmés
+	measure Trains = COUNTROWS ( Circulation )
+		formatString: #,0
+		displayFolder: 01 Volumes
+
+	/// Trains effectivement exploités
+	measure 'Trains assurés' = CALCULATE ( [Trains], Circulation[is_cancelled] = FALSE () )
+		formatString: #,0
+		displayFolder: 01 Volumes
+
+	/// Trains supprimés
+	measure 'Trains annulés' = CALCULATE ( [Trains], Circulation[is_cancelled] = TRUE () )
+		formatString: #,0
+		displayFolder: 01 Volumes
+
+	/// Voyageurs transportés
+	measure Voyageurs = SUM ( Circulation[passengers] )
+		formatString: #,0
+		displayFolder: 01 Volumes
+
+	/// Voyageurs multipliés par la distance parcourue
+	measure Voyageurs-km = SUM ( Circulation[passenger_km] )
+		formatString: #,0
+		displayFolder: 01 Volumes
+
+	/// Capacité des trains assurés
+	measure 'Sièges offerts' = CALCULATE ( SUM ( Circulation[seats] ), Circulation[is_cancelled] = FALSE () )
+		formatString: #,0
+		displayFolder: 01 Volumes
+
+	/// Voyageurs rapportés aux sièges offerts
+	measure 'Taux de remplissage %' = DIVIDE ( [Voyageurs], [Sièges offerts] )
+		formatString: 0.0 %;-0.0 %;0.0 %
+		displayFolder: 01 Volumes
+
+	/// Charge moyenne d'un train
+	measure 'Voyageurs par train' = DIVIDE ( [Voyageurs], [Trains assurés] )
+		formatString: #,0
+		displayFolder: 01 Volumes
+
+	/// Moyenne glissante sur 7 jours, lisse la saisonnalité de la semaine
+	measure 'Voyageurs (moyenne 7 jours)' =
+			VAR _fin = MAX ( 'Date'[Date] )
+			RETURN
+			    DIVIDE ( CALCULATE ( [Voyageurs], DATESBETWEEN ( 'Date'[Date], _fin - 6, _fin ) ), 7 )
+		formatString: #,0
+		displayFolder: 01 Volumes
+
+	/// Voyageurs du mois calendaire qui précède le dernier mois observé (fonctionne avec la table Mois)
+	measure 'Voyageurs mois précédent' =
+			VAR _dernier = CALCULATE ( MAX ( Circulation[Départ prévu] ) )
+			VAR _fin = EOMONTH ( _dernier, -1 )
+			VAR _debut = EOMONTH ( _fin, -1 ) + 1
+			RETURN
+			    IF (
+			        NOT ISBLANK ( _dernier ),
+			        CALCULATE ( [Voyageurs], REMOVEFILTERS ( 'Date' ), REMOVEFILTERS ( Mois ), DATESBETWEEN ( 'Date'[Date], _debut, _fin ) )
+			    )
+		formatString: #,0
+		displayFolder: 01 Volumes
+
+	/// Variation par rapport au mois précédent
+	measure 'Évolution voyageurs %' =
+			VAR _prec = [Voyageurs mois précédent]
+			RETURN
+			    IF ( NOT ISBLANK ( _prec ), DIVIDE ( [Voyageurs] - _prec, _prec ) )
+		formatString: +0.0 %;-0.0 %;0.0 %
+		displayFolder: 01 Volumes
+
+	/// Trains arrivés avec 5 minutes de retard au plus
+	measure 'Trains à l''heure' = CALCULATE ( [Trains], Circulation[is_on_time] = TRUE () )
+		formatString: #,0
+		displayFolder: 02 Qualité de service
+
+	/// Part des trains assurés arrivés à 5 minutes au plus
+	measure 'Ponctualité %' = DIVIDE ( [Trains à l'heure], [Trains assurés] )
+		formatString: 0.0 %;-0.0 %;0.0 %
+		displayFolder: 02 Qualité de service
+
+	/// Retard moyen à l'arrivée des trains assurés
+	measure 'Retard moyen (min)' = CALCULATE ( AVERAGE ( Circulation[arrival_delay_min] ), Circulation[is_cancelled] = FALSE () )
+		formatString: 0.0
+		displayFolder: 02 Qualité de service
+
+	/// Trains arrivés avec plus de 15 minutes de retard
+	measure 'Trains en retard > 15 min' = CALCULATE ( [Trains], Circulation[arrival_delay_min] > 15 )
+		formatString: #,0
+		displayFolder: 02 Qualité de service
+
+	/// Part des trains supprimés
+	measure 'Taux d''annulation %' = DIVIDE ( [Trains annulés], [Trains] )
+		formatString: 0.00 %;-0.00 %;0.00 %
+		displayFolder: 02 Qualité de service
+
+	/// Total des minutes de retard subies
+	measure 'Minutes de retard cumulées' = CALCULATE ( SUM ( Circulation[arrival_delay_min] ), Circulation[arrival_delay_min] > 0 )
+		formatString: #,0
+		displayFolder: 02 Qualité de service
+
+	/// Écart en points avec la ponctualité moyenne du réseau
+	measure 'Écart de ponctualité (pts)' =
+			VAR _reseau = CALCULATE ( [Ponctualité %], REMOVEFILTERS ( Relation ) )
+			RETURN
+			    ( [Ponctualité %] - _reseau ) * 100
+		formatString: +0.0;-0.0;0.0
+		displayFolder: 02 Qualité de service
+
+	/// Recettes voyageurs
+	measure 'Chiffre d''affaires' = SUM ( Circulation[revenue_eur] )
+		formatString: #,0 €
+		displayFolder: 03 Finance
+
+	/// Recettes voyageurs en millions d'euros
+	measure 'Chiffre d''affaires (M€)' = DIVIDE ( [Chiffre d'affaires], 1000000 )
+		formatString: #,0.0
+		displayFolder: 03 Finance
+
+	/// Billet moyen
+	measure 'Recette par voyageur' = DIVIDE ( [Chiffre d'affaires], [Voyageurs] )
+		formatString: #,0.00 €
+		displayFolder: 03 Finance
+
+	/// Rendement kilométrique
+	measure 'Recette par voyageur-km' = DIVIDE ( [Chiffre d'affaires], [Voyageurs-km] )
+		formatString: 0.000 €
+		displayFolder: 03 Finance
+
+	/// Chiffre d'affaires vu par les réservations
+	measure 'CA réservations' = SUM ( 'Réservation'[revenue_eur] )
+		formatString: #,0 €
+		displayFolder: 03 Finance
+
+	/// Voyageurs vus par les réservations
+	measure 'Voyageurs réservations' = SUM ( 'Réservation'[passengers] )
+		formatString: #,0
+		displayFolder: 03 Finance
+
+	/// Part du chiffre d'affaires réalisée en 1re classe
+	measure 'Part 1re classe %' = DIVIDE ( CALCULATE ( [CA réservations], 'Réservation'[Classe] = "1re classe" ), [CA réservations] )
+		formatString: 0.0 %;-0.0 %;0.0 %
+		displayFolder: 03 Finance
+
+	/// Part des voyageurs par canal de vente
+	measure 'Part du canal %' = DIVIDE ( [Voyageurs réservations], CALCULATE ( [Voyageurs réservations], REMOVEFILTERS ( 'Réservation'[Canal] ) ) )
+		formatString: 0.0 %;-0.0 %;0.0 %
+		displayFolder: 03 Finance
+
+	/// Délai moyen entre achat et départ, pondéré par les voyageurs
+	measure 'Anticipation moyenne (jours)' = DIVIDE ( SUMX ( 'Réservation', 'Réservation'[avg_lead_days] * 'Réservation'[passengers] ), [Voyageurs réservations] )
+		formatString: 0.0
+		displayFolder: 03 Finance
+
+	/// CO2 évité face à l'avion court-courrier (6 g contre 180 g par voyageur-km)
+	measure 'CO2 évité (t)' = DIVIDE ( SUM ( Circulation[co2_avoided_kg] ), 1000 )
+		formatString: #,0
+		displayFolder: 04 Climat
+
+	/// CO2 évité par voyageur transporté
+	measure 'CO2 évité par voyageur (kg)' = DIVIDE ( SUM ( Circulation[co2_avoided_kg] ), [Voyageurs] )
+		formatString: 0.0
+		displayFolder: 04 Climat
+
+	/// Équivalent en tours de la Terre d'une voiture émettant 120 g de CO2 par km
+	measure 'Tours de la Terre en voiture évités' = DIVIDE ( [CO2 évité (t)] * 1000000, 120 * 40075 )
+		formatString: #,0
+		displayFolder: 04 Climat
+
+	/// Trains de l'horaire des 14 prochains jours
+	measure 'Trains prévus' = COUNTROWS ( 'Prévision' )
+		formatString: #,0
+		displayFolder: 05 Prévisions
+
+	/// Retard moyen prévu par le modèle
+	measure 'Retard prévu moyen (min)' = AVERAGE ( 'Prévision'[Retard prévu (min)] )
+		formatString: 0.0
+		displayFolder: 05 Prévisions
+
+	/// Trains dont le retard prévu atteint 6 minutes
+	measure 'Trains à risque élevé' = CALCULATE ( [Trains prévus], 'Prévision'[Niveau de risque] = "ÉLEVÉ" )
+		formatString: #,0
+		displayFolder: 05 Prévisions
+
+	/// Part des trains à risque élevé
+	measure 'Part à risque élevé %' = DIVIDE ( [Trains à risque élevé], [Trains prévus] )
+		formatString: 0.0 %;-0.0 %;0.0 %
+		displayFolder: 05 Prévisions
+
+	/// Vert au-dessus de 77 %, orange de 74 à 77 %, rouge en dessous
+	measure 'Couleur ponctualité' =
+			VAR _p = [Ponctualité %]
+			RETURN
+			    SWITCH ( TRUE (), ISBLANK ( _p ), "#C9D3E0", _p >= 0.77, "#1F9D74", _p >= 0.74, "#E8A33D", "#D64545" )
+		displayFolder: 99 Mise en forme
+
+	/// Couleur du niveau de risque
+	measure 'Couleur risque' = SWITCH ( SELECTEDVALUE ( 'Prévision'[Niveau de risque] ), "ÉLEVÉ", "#D64545", "MOYEN", "#E8A33D", "#1F9D74" )
+		displayFolder: 99 Mise en forme
+
+	/// Position est-ouest de la gare pour la carte schématique
+	measure 'Longitude gare' = AVERAGE ( Gare[Longitude] )
+		formatString: 0.00
+		displayFolder: 99 Mise en forme
+
+	/// Position nord-sud de la gare pour la carte schématique
+	measure 'Latitude gare' = AVERAGE ( Gare[Latitude] )
+		formatString: 0.00
+		displayFolder: 99 Mise en forme
+
+	/// Libellé dynamique de la période
+	measure 'Période analysée' =
+			VAR _d = CALCULATE ( MIN ( Circulation[Départ prévu] ) )
+			VAR _f = CALCULATE ( MAX ( Circulation[Départ prévu] ) )
+			RETURN
+			    "Exercice d'exploitation du " & FORMAT ( _d, "d mmmm yyyy" ) & " au " & FORMAT ( _f, "d mmmm yyyy" )
+		displayFolder: 99 Mise en forme
+
+	/// Cible de ponctualité du réseau (seuil vert)
+	measure 'Objectif ponctualité %' = IF(NOT ISBLANK([Trains assurés]), 0.77)
+		formatString: 0.0 %
+		displayFolder: 02 Qualité de service
+
+	/// Écart en points entre la ponctualité et l'objectif de 77 %
+	measure 'Écart à l''objectif (pts)' = VAR p = [Ponctualité %] RETURN IF(NOT ISBLANK(p), (p - [Objectif ponctualité %]) * 100)
+		formatString: +0.0;-0.0;0.0
+		displayFolder: 02 Qualité de service
+
+	/// Classement de la relation sélectionnée par ponctualité
+	measure 'Rang ponctualité' =
+			VAR s = FILTER(ALL(Relation[Relation]), NOT ISBLANK(CALCULATE([Ponctualité %])))
+			VAR n = COUNTROWS(s)
+			VAR r = IF(HASONEVALUE(Relation[Relation]) && NOT ISBLANK([Ponctualité %]), RANKX(s, CALCULATE([Ponctualité %]), [Ponctualité %], DESC))
+			RETURN IF(NOT ISBLANK(r), r & IF(r = 1, "re", "e") & " sur " & n)
+		displayFolder: 06 Récit
+
+	/// Titre dynamique de la page de détail
+	measure 'Titre fiche relation' = "Fiche relation · " & SELECTEDVALUE(Relation[Relation], "plusieurs relations")
+		displayFolder: 06 Récit
+
+	/// Ligne, distance, type et rang de la relation
+	measure 'Sous-titre fiche relation' = IF(HASONEVALUE(Relation[Relation]), "Ligne " & SELECTEDVALUE(Relation[Ligne]) & " · " & FORMAT(SELECTEDVALUE(Relation[Distance (km)]), "#,0") & " km · " & IF(SELECTEDVALUE(Relation[Transfrontalière]), "relation transfrontalière", "relation nationale") & " · ponctualité " & [Rang ponctualité], "Sélectionnez une relation")
+		displayFolder: 06 Récit
+
+	/// Phrase d'analyse de la page Réseau, recalculée selon les filtres
+	measure 'Récit réseau' =
+			VAR m = TOPN(1, FILTER(ADDCOLUMNS(VALUES(Mois[Mois]), "@v", [Voyageurs]), NOT ISBLANK([@v])), [@v], DESC)
+			VAR l = TOPN(1, FILTER(ADDCOLUMNS(VALUES(Relation[Ligne]), "@v", [Voyageurs]), NOT ISBLANK([@v])), [@v], DESC)
+			VAR fr = COALESCE(DIVIDE(CALCULATE([Voyageurs], Gare[Pays] = "France"), [Voyageurs]), 0)
+			RETURN "Mois record : " & MAXX(m, Mois[Mois]) & " avec " & FORMAT(MAXX(m, [@v]), "#,0") & " voyageurs. Ligne la plus fréquentée : " & MAXX(l, Relation[Ligne]) & ". " & FORMAT(fr, "0 %") & " des voyageurs partent d'une gare française."
+		displayFolder: 06 Récit
+
+	/// Phrase d'analyse de la page Ponctualité
+	measure 'Récit ponctualité' =
+			VAR t = FILTER(ADDCOLUMNS(VALUES(Relation[Relation]), "@p", [Ponctualité %]), NOT ISBLANK([@p]))
+			VAR w = TOPN(1, t, [@p], ASC)
+			VAR b = TOPN(1, t, [@p], DESC)
+			VAR h = TOPN(1, FILTER(ADDCOLUMNS(VALUES(Circulation[Heure de départ]), "@r", [Retard moyen (min)]), NOT ISBLANK([@r])), [@r], DESC)
+			RETURN IF(COUNTROWS(t) > 1, "À redresser en priorité : " & MAXX(w, Relation[Relation]) & " (" & FORMAT(MAXX(w, [@p]), "0.0 %") & "). Modèle à suivre : " & MAXX(b, Relation[Relation]) & " (" & FORMAT(MAXX(b, [@p]), "0.0 %") & "). ", "Ponctualité de " & FORMAT([Ponctualité %], "0.0 %") & " sur la sélection. ") & "Les départs de " & MAXX(h, Circulation[Heure de départ]) & " h cumulent le plus de retard (" & FORMAT(MAXX(h, [@r]), "0.0") & " min en moyenne)."
+		displayFolder: 06 Récit
+
+	/// Phrase d'analyse de la page Revenus
+	measure 'Récit revenus' =
+			VAR r = TOPN(1, ADDCOLUMNS(VALUES(Relation[Relation]), "@ca", [Chiffre d'affaires]), [@ca], DESC)
+			VAR c = TOPN(1, ADDCOLUMNS(VALUES('Réservation'[Canal]), "@v", [Voyageurs réservations]), [@v], DESC)
+			VAR k = TOPN(1, ADDCOLUMNS(VALUES(Relation[Relation]), "@k", [Recette par voyageur-km]), [@k], DESC)
+			RETURN "1re source de recettes : " & MAXX(r, Relation[Relation]) & " (" & FORMAT(DIVIDE(MAXX(r, [@ca]), [Chiffre d'affaires]), "0.0 %") & " du CA). Canal dominant : " & MAXX(c, 'Réservation'[Canal]) & ". Meilleur rendement : " & MAXX(k, Relation[Relation]) & " (" & FORMAT(MAXX(k, [@k]), "0.000 €") & " par voyageur-km)."
+		displayFolder: 06 Récit
+
+	/// Phrase d'analyse de la page Climat
+	measure 'Récit climat' =
+			VAR r = TOPN(1, ADDCOLUMNS(VALUES(Relation[Relation]), "@c", [CO2 évité (t)]), [@c], DESC)
+			RETURN "Le train a évité " & FORMAT([CO2 évité (t)], "#,0") & " tonnes de CO2, soit " & FORMAT([Tours de la Terre en voiture évités], "#,0") & " tours de la Terre en voiture. Relation la plus utile au climat : " & MAXX(r, Relation[Relation]) & " (" & FORMAT(MAXX(r, [@c]), "#,0") & " t)."
+		displayFolder: 06 Récit
+
+	/// Phrase d'analyse de la page Prévisions
+	measure 'Récit prévisions' =
+			VAR d = TOPN(1, ADDCOLUMNS(VALUES('Date'[Date]), "@e", [Trains à risque élevé]), [@e], DESC)
+			VAR r = TOPN(1, ADDCOLUMNS(VALUES(Relation[Relation]), "@m", [Retard prévu moyen (min)]), [@m], DESC)
+			RETURN "Journée la plus exposée : " & FORMAT(MAXX(d, 'Date'[Date]), "dddd d mmmm") & " (" & MAXX(d, [@e]) & " trains à risque élevé). Relation à renforcer : " & MAXX(r, Relation[Relation]) & " (" & SUBSTITUTE(FORMAT(MAXX(r, [@m]), "0.0"), ".", ",") & " min de retard prévu en moyenne)."
+		displayFolder: 06 Récit
+
+	/// Synthèse de la relation sélectionnée
+	measure 'Récit fiche relation' = IF(HASONEVALUE(Relation[Relation]), VAR e = [Écart à l'objectif (pts)] RETURN "Ponctualité de " & FORMAT([Ponctualité %], "0.0 %") & ", soit " & FORMAT(ABS(e), "0.0") & " points " & IF(e >= 0, "au-dessus", "en dessous") & " de l'objectif. " & FORMAT([Voyageurs], "#,0") & " voyageurs, " & FORMAT([Chiffre d'affaires (M€)], "0.0") & " M€ de recettes et " & FORMAT([CO2 évité (t)], "#,0") & " t de CO2 évitées sur l'exercice.")
+		displayFolder: 06 Récit
+
+	column Valeur
+		isHidden
+		isNameInferred
+		sourceColumn: [Valeur]
+
+	partition _Mesures = calculated
+		mode: import
+		source = ROW ( "Valeur", BLANK () )
+

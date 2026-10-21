@@ -1,0 +1,8 @@
+// Voyageurs transportés par ligne, deux sens confondus.
+EVALUATE
+SUMMARIZECOLUMNS(
+    'Relation'[Ligne],
+    "Voyageurs", [Voyageurs],
+    "Ponctualité %", [Ponctualité %]
+)
+ORDER BY [Voyageurs] DESC

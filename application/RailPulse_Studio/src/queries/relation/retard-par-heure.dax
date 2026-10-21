@@ -1,0 +1,10 @@
+// Retard moyen et ponctualité par heure de départ.
+EVALUATE
+SUMMARIZECOLUMNS(
+    'Circulation'[Heure de départ],
+    /*FILTRE_RELATION,*/
+    "Retard moyen (min)", [Retard moyen (min)],
+    "Ponctualité %", [Ponctualité %],
+    "Trains", [Trains]
+)
+ORDER BY 'Circulation'[Heure de départ]

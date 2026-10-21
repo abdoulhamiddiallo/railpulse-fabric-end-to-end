@@ -1,0 +1,41 @@
+{
+  "$schema": "https://vega.github.io/schema/vega-lite/v6.json",
+  "description": "Carte de chaleur du retard moyen par jour de semaine (lundi en tête) et heure de départ.",
+  "width": "container",
+  "height": "container",
+  "transform": [
+    { "calculate": "datum.Heure + ' h'", "as": "HeureLibelle" },
+    { "calculate": "upper(slice(datum.Jour, 0, 1)) + slice(datum.Jour, 1)", "as": "JourLibelle" }
+  ],
+  "mark": { "type": "rect", "cornerRadius": 2 },
+  "encoding": {
+    "x": {
+      "field": "HeureLibelle",
+      "type": "ordinal",
+      "sort": { "field": "Heure", "op": "min" },
+      "title": "Heure de départ",
+      "axis": { "labelAngle": 0, "orient": "top" },
+      "scale": { "paddingInner": 0.02 }
+    },
+    "y": {
+      "field": "JourLibelle",
+      "type": "ordinal",
+      "sort": { "field": "NumeroJour", "op": "min" },
+      "title": null,
+      "scale": { "paddingInner": 0.02 }
+    },
+    "color": {
+      "field": "RetardMoyen",
+      "type": "quantitative",
+      "title": "Retard moyen",
+      "scale": { "range": [] },
+      "legend": { "orient": "bottom", "direction": "horizontal", "gradientLength": 220 }
+    },
+    "tooltip": [
+      { "field": "JourLibelle", "type": "ordinal", "title": "Jour" },
+      { "field": "HeureLibelle", "type": "ordinal", "title": "Heure de départ" },
+      { "field": "RetardMoyen", "type": "quantitative" },
+      { "field": "Trains", "type": "quantitative" }
+    ]
+  }
+}

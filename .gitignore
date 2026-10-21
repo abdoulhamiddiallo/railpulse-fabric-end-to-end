@@ -1,0 +1,15 @@
+# Dépendances et compilation de l'application
+node_modules/
+dist/
+*.tsbuildinfo
+
+# Fichiers générés et secrets locaux
+application/RailPulse_Studio/src/fabric.generated.ts
+application/RailPulse_Studio/rayfin/.env*
+application/RailPulse_Studio/rayfin/.deployments.json
+.env
+
+# Systèmes
+.DS_Store
+Thumbs.db
+.ipynb_checkpoints/

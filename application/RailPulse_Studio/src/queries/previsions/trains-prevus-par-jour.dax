@@ -1,0 +1,10 @@
+// Trains prévus par jour et niveau de risque (horizon de 14 jours).
+EVALUATE
+SUMMARIZECOLUMNS(
+    'Date'[Date],
+    'Date'[Jour],
+    'Prévision'[Niveau de risque],
+    /*FILTRE_RELATION,*/
+    "Trains prévus", [Trains prévus]
+)
+ORDER BY 'Date'[Date], 'Prévision'[Niveau de risque]

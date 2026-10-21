@@ -1,0 +1,263 @@
+{
+  "$schema": "https://vega.github.io/schema/vega-lite/v6.json",
+  "description": "Carte des gares (cercles proportionnels aux voyageurs au départ) et tracés des lignes, sur fond de carte européen.",
+  "width": "container",
+  "height": "container",
+  "projection": {
+    "type": "mercator"
+  },
+  "layer": [
+    {
+      "name": "graticule",
+      "data": {
+        "graticule": {
+          "step": [
+            2,
+            2
+          ]
+        }
+      },
+      "mark": {
+        "type": "geoshape",
+        "filled": false,
+        "strokeWidth": 0.6,
+        "clip": true
+      }
+    },
+    {
+      "name": "liaisons",
+      "data": {
+        "name": "liaisons"
+      },
+      "mark": {
+        "type": "rule",
+        "strokeWidth": 4,
+        "strokeCap": "round",
+        "opacity": 0.9
+      },
+      "encoding": {
+        "longitude": {
+          "field": "LonOrigine",
+          "type": "quantitative"
+        },
+        "latitude": {
+          "field": "LatOrigine",
+          "type": "quantitative"
+        },
+        "longitude2": {
+          "field": "LonDestination"
+        },
+        "latitude2": {
+          "field": "LatDestination"
+        },
+        "color": {
+          "field": "Ligne",
+          "type": "nominal",
+          "scale": {
+            "domain": [],
+            "range": []
+          },
+          "legend": null
+        },
+        "tooltip": [
+          {
+            "field": "Ligne",
+            "type": "nominal"
+          },
+          {
+            "field": "VoyageursLigne",
+            "type": "quantitative"
+          }
+        ]
+      }
+    },
+    {
+      "name": "gares",
+      "data": {
+        "name": "gares"
+      },
+      "mark": {
+        "type": "circle",
+        "strokeWidth": 2,
+        "opacity": 1
+      },
+      "encoding": {
+        "longitude": {
+          "field": "Longitude",
+          "type": "quantitative"
+        },
+        "latitude": {
+          "field": "Latitude",
+          "type": "quantitative"
+        },
+        "size": {
+          "field": "Voyageurs",
+          "type": "quantitative",
+          "scale": {
+            "range": [
+              70,
+              900
+            ]
+          },
+          "legend": null
+        },
+        "tooltip": [
+          {
+            "field": "Ville",
+            "type": "nominal"
+          },
+          {
+            "field": "Pays",
+            "type": "nominal"
+          },
+          {
+            "field": "Voyageurs",
+            "type": "quantitative"
+          },
+          {
+            "field": "Ponctualite",
+            "type": "quantitative"
+          }
+        ]
+      }
+    },
+    {
+      "name": "halo-ouest",
+      "data": {
+        "name": "gares"
+      },
+      "transform": [
+        {
+          "filter": "datum.Longitude < 0"
+        }
+      ],
+      "mark": {
+        "type": "text",
+        "align": "right",
+        "baseline": "middle",
+        "dx": -13,
+        "fontWeight": 600,
+        "fontSize": 12,
+        "strokeWidth": 4,
+        "strokeJoin": "round",
+        "strokeOpacity": 0.92
+      },
+      "encoding": {
+        "longitude": {
+          "field": "Longitude",
+          "type": "quantitative"
+        },
+        "latitude": {
+          "field": "Latitude",
+          "type": "quantitative"
+        },
+        "text": {
+          "field": "Ville",
+          "type": "nominal"
+        }
+      }
+    },
+    {
+      "name": "halo-est",
+      "data": {
+        "name": "gares"
+      },
+      "transform": [
+        {
+          "filter": "datum.Longitude >= 0"
+        }
+      ],
+      "mark": {
+        "type": "text",
+        "align": "left",
+        "baseline": "middle",
+        "dx": 13,
+        "fontWeight": 600,
+        "fontSize": 12,
+        "strokeWidth": 4,
+        "strokeJoin": "round",
+        "strokeOpacity": 0.92
+      },
+      "encoding": {
+        "longitude": {
+          "field": "Longitude",
+          "type": "quantitative"
+        },
+        "latitude": {
+          "field": "Latitude",
+          "type": "quantitative"
+        },
+        "text": {
+          "field": "Ville",
+          "type": "nominal"
+        }
+      }
+    },
+    {
+      "name": "etiquettes-ouest",
+      "data": {
+        "name": "gares"
+      },
+      "transform": [
+        {
+          "filter": "datum.Longitude < 0"
+        }
+      ],
+      "mark": {
+        "type": "text",
+        "align": "right",
+        "baseline": "middle",
+        "dx": -13,
+        "fontWeight": 600,
+        "fontSize": 12
+      },
+      "encoding": {
+        "longitude": {
+          "field": "Longitude",
+          "type": "quantitative"
+        },
+        "latitude": {
+          "field": "Latitude",
+          "type": "quantitative"
+        },
+        "text": {
+          "field": "Ville",
+          "type": "nominal"
+        }
+      }
+    },
+    {
+      "name": "etiquettes-est",
+      "data": {
+        "name": "gares"
+      },
+      "transform": [
+        {
+          "filter": "datum.Longitude >= 0"
+        }
+      ],
+      "mark": {
+        "type": "text",
+        "align": "left",
+        "baseline": "middle",
+        "dx": 13,
+        "fontWeight": 600,
+        "fontSize": 12
+      },
+      "encoding": {
+        "longitude": {
+          "field": "Longitude",
+          "type": "quantitative"
+        },
+        "latitude": {
+          "field": "Latitude",
+          "type": "quantitative"
+        },
+        "text": {
+          "field": "Ville",
+          "type": "nominal"
+        }
+      }
+    }
+  ]
+}

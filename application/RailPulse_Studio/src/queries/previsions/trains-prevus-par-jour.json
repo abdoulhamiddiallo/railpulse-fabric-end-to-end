@@ -1,0 +1,35 @@
+{
+  "$schema": "https://vega.github.io/schema/vega-lite/v6.json",
+  "description": "Trains prévus par jour sur 14 jours, empilés par niveau de risque (élevé en bas).",
+  "width": "container",
+  "height": "container",
+  "transform": [
+    { "calculate": "slice(datum.Jour, 0, 3) + '. ' + timeFormat(toDate(datum.Date), '%d/%m')", "as": "JourLibelle" },
+    { "calculate": "time(toDate(datum.Date))", "as": "OrdreJour" },
+    { "calculate": "datum.Risque === 'ÉLEVÉ' ? 0 : (datum.Risque === 'MOYEN' ? 1 : 2)", "as": "RangRisque" }
+  ],
+  "mark": { "type": "bar" },
+  "encoding": {
+    "x": {
+      "field": "JourLibelle",
+      "type": "ordinal",
+      "sort": { "field": "OrdreJour", "op": "min" },
+      "title": null,
+      "axis": { "labelAngle": 0 }
+    },
+    "y": { "field": "TrainsPrevus", "type": "quantitative", "stack": "zero", "title": "Trains prévus" },
+    "color": {
+      "field": "Risque",
+      "type": "nominal",
+      "title": "Niveau de risque",
+      "scale": { "domain": ["ÉLEVÉ", "MOYEN", "FAIBLE"], "range": [] },
+      "legend": { "orient": "top", "title": null }
+    },
+    "order": { "field": "RangRisque", "type": "quantitative" },
+    "tooltip": [
+      { "field": "JourLibelle", "type": "ordinal", "title": "Jour" },
+      { "field": "Risque", "type": "nominal" },
+      { "field": "TrainsPrevus", "type": "quantitative" }
+    ]
+  }
+}

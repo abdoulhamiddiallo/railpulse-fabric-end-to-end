@@ -1,0 +1,72 @@
+{
+  "$schema": "https://vega.github.io/schema/vega-lite/v6.json",
+  "description": "Retard moyen par heure de départ sur la relation choisie.",
+  "width": "container",
+  "height": "container",
+  "transform": [
+    {
+      "calculate": "datum.Heure + ' h'",
+      "as": "HeureLibelle"
+    }
+  ],
+  "encoding": {
+    "x": {
+      "field": "HeureLibelle",
+      "type": "ordinal",
+      "sort": {
+        "field": "Heure",
+        "op": "min"
+      },
+      "title": "Heure de départ",
+      "axis": {
+        "labelAngle": 0
+      }
+    },
+    "y": {
+      "field": "RetardMoyen",
+      "type": "quantitative",
+      "title": "Retard moyen"
+    }
+  },
+  "layer": [
+    {
+      "mark": {
+        "type": "bar"
+      },
+      "encoding": {
+        "tooltip": [
+          {
+            "field": "HeureLibelle",
+            "type": "ordinal",
+            "title": "Heure de départ"
+          },
+          {
+            "field": "RetardMoyen",
+            "type": "quantitative"
+          },
+          {
+            "field": "Ponctualite",
+            "type": "quantitative"
+          },
+          {
+            "field": "Trains",
+            "type": "quantitative"
+          }
+        ]
+      }
+    },
+    {
+      "mark": {
+        "type": "text",
+        "style": "labelVertical",
+        "limit": 0
+      },
+      "encoding": {
+        "text": {
+          "field": "RetardMoyen",
+          "type": "quantitative"
+        }
+      }
+    }
+  ]
+}

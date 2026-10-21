@@ -1,0 +1,21 @@
+/// RailPulse : modèle Direct Lake sur WH_RailPulse_Gold (schéma en étoile, finances, ponctualité, climat, prévisions ML)
+model SM_RailPulse
+	culture: fr-FR
+	defaultPowerBIDataSourceVersion: powerBI_V3
+	discourageImplicitMeasures
+	sourceQueryCulture: fr-FR
+	dataAccessOptions
+		legacyRedirects
+		returnErrorValuesAsNull
+
+
+ref table Date
+ref table Gare
+ref table Relation
+ref table Rame
+ref table Circulation
+ref table Réservation
+ref table Prévision
+ref table Mois
+ref table _Mesures
+

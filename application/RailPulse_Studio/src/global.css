@@ -1,0 +1,387 @@
+@layer fabric-visual-tokens, theme, base, fabric-visuals, components, utilities;
+
+@import "tailwindcss";
+
+@custom-variant dark (&:is(.dark *));
+
+/* Jetons consommés directement comme variables CSS (visuels, specs Vega-Lite,
+   pictogrammes de ligne) : ils sont émis même sans utilitaire Tailwind. */
+@theme static {
+  --color-brand:            #00a3a3;  /* remplissage des barres et aires */
+  --color-brand-foreground: #0f6cbd;  /* traits de courbes, points, emphase */
+  --color-hover:            #eaf1f9;  /* survol des lignes de grille et visuels */
+  --font-page-title: var(--font-heading);
+  --font-page-subtitle: var(--font-base);
+  --font-visual-title: var(--font-heading);
+  --font-visual-subtitle: var(--font-base);
+  --font-data-label: var(--font-numeric);
+  --text-page-title: var(--text-hero-700);
+  --text-page-subtitle: var(--text-300);
+  --text-visual-title: var(--text-400);
+  --text-visual-subtitle: var(--text-200);
+  --text-data-label: 11px;
+
+  /* Palette catégorielle des données (dix couleurs, contraste alterné) */
+  --color-data-1:  #0f6cbd;
+  --color-data-2:  #e8a33d;
+  --color-data-3:  #0b1f3a;
+  --color-data-4:  #00a3a3;
+  --color-data-5:  #7b4fe0;
+  --color-data-6:  #1f9d74;
+  --color-data-7:  #d64545;
+  --color-data-8:  #5b6b82;
+  --color-data-9:  #b5651d;
+  --color-data-10: #c2408f;
+
+  /* Afficheur à palettes (tableau des départs) */
+  --color-board:            #0b1f3a;
+  --color-board-cell:       #12294a;
+  --color-board-foreground: #f6c35b;
+  --color-board-label:      #9fb3cf;
+  --color-board-split:      #04101f;
+
+  /* Signaux d'exploitation (seuils de ponctualité et niveaux de risque) */
+  --color-signal-conforme:  #1f9d74;
+  --color-signal-vigilance: #e8a33d;
+  --color-signal-critique:  #d64545;
+
+  /* Pictogrammes des douze lignes (fond + texte) */
+  --color-ligne-01: #0f6cbd;  --color-ligne-01-texte: #ffffff;
+  --color-ligne-02: #e8a33d;  --color-ligne-02-texte: #0b1f3a;
+  --color-ligne-03: #d64545;  --color-ligne-03-texte: #ffffff;
+  --color-ligne-04: #1f9d74;  --color-ligne-04-texte: #ffffff;
+  --color-ligne-05: #7b4fe0;  --color-ligne-05-texte: #ffffff;
+  --color-ligne-06: #00a3a3;  --color-ligne-06-texte: #06222a;
+  --color-ligne-07: #c2408f;  --color-ligne-07-texte: #ffffff;
+  --color-ligne-08: #8d6e3f;  --color-ligne-08-texte: #ffffff;
+  --color-ligne-09: #7fb241;  --color-ligne-09-texte: #0b1f3a;
+  --color-ligne-10: #e06d2e;  --color-ligne-10-texte: #ffffff;
+  --color-ligne-11: #1a4e8a;  --color-ligne-11-texte: #ffffff;
+  --color-ligne-12: #8c9bd9;  --color-ligne-12-texte: #0b1f3a;
+
+  /* Rampe séquentielle de la carte de chaleur des retards */
+  --color-chaleur-0: #e3f4f4;
+  --color-chaleur-1: #9fd8d5;
+  --color-chaleur-2: #f2d48f;
+  --color-chaleur-3: #e8a33d;
+  --color-chaleur-4: #d64545;
+
+  /* Fond de carte */
+  --color-carte-terre:     #e3e9f2;
+  --color-carte-frontiere: #ffffff;
+  --color-carte-graticule: #d7dfea;
+  --color-carte-halo:      #ffffff;
+}
+
+@theme {
+  /* Jetons de couleur, thème clair */
+  --color-background: #f3f6fb;
+  --color-foreground: #0b1f3a;
+
+  --color-card: #ffffff;
+  --color-card-foreground: #0b1f3a;
+
+  --color-popover: #ffffff;
+  --color-popover-foreground: #0b1f3a;
+
+  --color-primary: #0b1f3a;
+  --color-primary-foreground: #ffffff;
+
+  --color-secondary: #e7edf6;
+  --color-secondary-foreground: #0b1f3a;
+
+  --color-muted: #e9eef5;
+  --color-muted-foreground: #5b6b82;
+
+  --color-accent: #e1f3f3;
+  --color-accent-foreground: #0b1f3a;
+
+  --color-destructive: #c43d3d;
+  --color-destructive-foreground: #ffffff;
+
+  --color-success: #1f9d74;
+  --color-success-foreground: #ffffff;
+
+  --color-warning: #e8a33d;
+  --color-warning-foreground: #0b1f3a;
+
+  --color-highlight: #00a3a3;
+  --color-highlight-foreground: #ffffff;
+
+  --color-border: #d7dfea;
+  --color-input: #c5d0de;
+  --color-ring: #00a3a3;
+
+  --color-rail: #0b1f3a;
+  --color-rail-foreground: #e8eef7;
+  --color-rail-muted: #8fa3bf;
+  --color-rail-active: #13305a;
+
+  /* Ombres d'élévation */
+  --shadow-2:  0 0 2px rgba(11, 31, 58, 0.10), 0 1px 2px rgba(11, 31, 58, 0.10);
+  --shadow-4:  0 0 2px rgba(11, 31, 58, 0.10), 0 2px 4px rgba(11, 31, 58, 0.10);
+  --shadow-8:  0 0 2px rgba(11, 31, 58, 0.10), 0 4px 8px rgba(11, 31, 58, 0.12);
+  --shadow-16: 0 0 2px rgba(11, 31, 58, 0.10), 0 8px 16px rgba(11, 31, 58, 0.12);
+  --shadow-28: 0 0 8px rgba(11, 31, 58, 0.10), 0 14px 28px rgba(11, 31, 58, 0.14);
+  --shadow-64: 0 0 8px rgba(11, 31, 58, 0.10), 0 32px 64px rgba(11, 31, 58, 0.16);
+
+  --radius-none: 0;
+  --radius-sm: calc(2px * var(--radius-scale, 1));
+  --radius-md: calc(4px * var(--radius-scale, 1));
+  --radius-lg: calc(6px * var(--radius-scale, 1));
+  --radius-xl: calc(8px * var(--radius-scale, 1));
+  --radius-2xl: calc(12px * var(--radius-scale, 1));
+  --radius-3xl: calc(16px * var(--radius-scale, 1));
+  --radius-4xl: calc(24px * var(--radius-scale, 1));
+  --radius-5xl: calc(32px * var(--radius-scale, 1));
+  --radius-6xl: calc(40px * var(--radius-scale, 1));
+  --radius-full: calc(9999px * var(--radius-scale, 1));
+  --radius: calc(6px * var(--radius-scale, 1));
+
+  --spacing: 4px;
+
+  /* Échelle typographique */
+  --text-100: 10px;
+  --text-200: 12px;
+  --text-300: 14px;
+  --text-400: 16px;
+  --text-500: 20px;
+  --text-600: 24px;
+  --text-hero-700: 28px;
+  --text-hero-800: 32px;
+  --text-hero-900: 40px;
+  --text-hero-1000: 68px;
+
+  --leading-100: 14px;
+  --leading-200: 16px;
+  --leading-300: 20px;
+  --leading-400: 22px;
+  --leading-500: 28px;
+  --leading-600: 32px;
+  --leading-hero-700: 36px;
+  --leading-hero-800: 40px;
+  --leading-hero-900: 52px;
+  --leading-hero-1000: 92px;
+
+  --font-weight-regular: 400;
+  --font-weight-medium: 500;
+  --font-weight-semibold: 600;
+  --font-weight-bold: 700;
+
+  /* Familles : grotesque de signalétique, humaniste technique, chasse fixe des afficheurs */
+  --font-heading: 'Space Grotesk', 'IBM Plex Sans', system-ui, sans-serif;
+  --font-base: 'IBM Plex Sans', system-ui, -apple-system, 'Segoe UI', sans-serif;
+  --font-monospace: 'JetBrains Mono', 'IBM Plex Mono', Consolas, monospace;
+  --font-numeric: 'JetBrains Mono', 'IBM Plex Mono', Consolas, monospace;
+
+  --icon-size-100: 12px;
+  --icon-size-200: 16px;
+  --icon-size-300: 20px;
+  --icon-size-400: 24px;
+  --icon-size-500: 28px;
+  --icon-size-600: 32px;
+  --icon-size-700: 48px;
+
+  /* Animation des palettes de l'afficheur */
+  --animate-palette: palette-bascule 520ms cubic-bezier(0.2, 0.7, 0.2, 1) both;
+  --animate-entree: entree-carte 480ms cubic-bezier(0.2, 0.7, 0.2, 1) both;
+
+  @keyframes palette-bascule {
+    0% { transform: perspective(240px) rotateX(-88deg); opacity: 0; }
+    60% { transform: perspective(240px) rotateX(10deg); opacity: 1; }
+    100% { transform: perspective(240px) rotateX(0deg); opacity: 1; }
+  }
+
+  @keyframes entree-carte {
+    from { transform: translateY(6px); opacity: 0; }
+    to { transform: translateY(0); opacity: 1; }
+  }
+}
+
+:root {
+  --radius-scale: 0.85;
+  --grid-gap: calc(var(--spacing) * 4);
+}
+
+@utility gap-grid {
+  gap: var(--grid-gap, calc(var(--spacing) * 4));
+}
+
+@utility icon-size-* {
+  width: --value(--icon-size-*);
+  height: --value(--icon-size-*);
+}
+
+/* Cellule d'afficheur : fond sombre, ligne de séparation horizontale */
+@utility cellule-palette {
+  position: relative;
+  background:
+    linear-gradient(
+      to bottom,
+      var(--color-board-cell) 0%,
+      var(--color-board-cell) calc(50% - 0.5px),
+      var(--color-board-split) calc(50% - 0.5px),
+      var(--color-board-split) calc(50% + 0.5px),
+      color-mix(in srgb, var(--color-board-cell) 88%, black) calc(50% + 0.5px),
+      color-mix(in srgb, var(--color-board-cell) 88%, black) 100%
+    );
+  box-shadow: inset 0 1px 0 color-mix(in srgb, white 8%, transparent);
+}
+
+/* Fond de page : trame de quai très discrète */
+@utility trame-quai {
+  background-image:
+    radial-gradient(color-mix(in srgb, var(--color-foreground) 7%, transparent) 1px, transparent 1px);
+  background-size: 18px 18px;
+}
+
+@layer base {
+  .dark {
+    /* Jetons de couleur, thème sombre */
+    --color-background: #06101d;
+    --color-foreground: #e6edf7;
+
+    --color-card: #0c1a2c;
+    --color-card-foreground: #e6edf7;
+
+    --color-popover: #11233a;
+    --color-popover-foreground: #e6edf7;
+
+    --color-primary: #19b5b5;
+    --color-primary-foreground: #04121f;
+
+    --color-secondary: #13243b;
+    --color-secondary-foreground: #e6edf7;
+
+    --color-muted: #112136;
+    --color-muted-foreground: #93a4bc;
+
+    --color-accent: #133047;
+    --color-accent-foreground: #e6edf7;
+
+    --color-destructive: #ec6b6b;
+    --color-destructive-foreground: #04121f;
+
+    --color-success: #3cc196;
+    --color-success-foreground: #04121f;
+
+    --color-warning: #f0b45a;
+    --color-warning-foreground: #04121f;
+
+    --color-highlight: #19b5b5;
+    --color-highlight-foreground: #04121f;
+
+    --color-border: #1f3550;
+    --color-input: #2a4463;
+    --color-ring: #19b5b5;
+
+    --color-rail: #040b15;
+    --color-rail-foreground: #e6edf7;
+    --color-rail-muted: #7f93ae;
+    --color-rail-active: #10243d;
+
+    --color-brand:            #19b5b5;
+    --color-brand-foreground: #5aa9f0;
+    --color-hover:            #13263e;
+
+    --color-data-1:  #5aa9f0;
+    --color-data-2:  #f0b45a;
+    --color-data-3:  #c9d6ea;
+    --color-data-4:  #19b5b5;
+    --color-data-5:  #a585f2;
+    --color-data-6:  #3cc196;
+    --color-data-7:  #ec6b6b;
+    --color-data-8:  #8ea2bd;
+    --color-data-9:  #d98c4a;
+    --color-data-10: #e07ab8;
+
+    --color-board:            #03080f;
+    --color-board-cell:       #0b1626;
+    --color-board-foreground: #f2b552;
+    --color-board-label:      #8fa3bf;
+    --color-board-split:      #000000;
+
+    --color-signal-conforme:  #3cc196;
+    --color-signal-vigilance: #f0b45a;
+    --color-signal-critique:  #ec6b6b;
+
+    --color-ligne-01: #2f86d6;
+    --color-ligne-03: #e05a5a;
+    --color-ligne-05: #8f69ea;
+    --color-ligne-08: #a58552;
+    --color-ligne-11: #3a70b5;
+
+    --color-chaleur-0: #10283a;
+    --color-chaleur-1: #17605f;
+    --color-chaleur-2: #8a6a2a;
+    --color-chaleur-3: #d0902f;
+    --color-chaleur-4: #ec6b6b;
+
+    --color-carte-terre:     #13253c;
+    --color-carte-frontiere: #06101d;
+    --color-carte-graticule: #1a2d45;
+    --color-carte-halo:      #06101d;
+  }
+}
+
+@layer base {
+  * {
+    @apply border-border;
+  }
+
+  html {
+    color-scheme: light;
+  }
+
+  html.dark {
+    color-scheme: dark;
+  }
+
+  body {
+    @apply bg-background text-foreground antialiased font-base;
+    font-feature-settings: "ss01", "cv11";
+  }
+
+  select,
+  input,
+  textarea,
+  button {
+    font-family: inherit;
+  }
+
+  /* Barres de défilement fines, adaptées au thème */
+  * {
+    scrollbar-width: thin;
+    scrollbar-color: var(--color-border) transparent;
+  }
+
+  *::-webkit-scrollbar {
+    width: 8px;
+    height: 8px;
+  }
+
+  *::-webkit-scrollbar-thumb {
+    background: var(--color-border);
+    border-radius: 9999px;
+  }
+
+  *::-webkit-scrollbar-track {
+    background: transparent;
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    *,
+    *::before,
+    *::after {
+      animation-duration: 1ms !important;
+      animation-delay: 0ms !important;
+      transition-duration: 1ms !important;
+    }
+  }
+}
+
+html,
+body,
+#root {
+  height: 100%;
+}

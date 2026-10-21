@@ -1,0 +1,40 @@
+relationship Circulation_Date
+	fromColumn: Circulation.date_key
+	toColumn: Date.date_key
+
+relationship Circulation_Relation
+	fromColumn: Circulation.route_key
+	toColumn: Relation.route_key
+
+relationship Circulation_Rame
+	fromColumn: Circulation.trainset_id
+	toColumn: Rame.Rame
+
+relationship Reservation_Date
+	fromColumn: Réservation.date_key
+	toColumn: Date.date_key
+
+relationship Reservation_Relation
+	fromColumn: Réservation.route_key
+	toColumn: Relation.route_key
+
+relationship Prevision_Date
+	fromColumn: Prévision.date_key
+	toColumn: Date.date_key
+
+relationship Prevision_Relation
+	fromColumn: Prévision.route_key
+	toColumn: Relation.route_key
+
+relationship Prevision_Rame
+	fromColumn: Prévision.trainset_id
+	toColumn: Rame.Rame
+
+relationship Relation_Gare
+	fromColumn: Relation.Origine
+	toColumn: Gare.'Code gare'
+
+relationship Date_Mois
+	fromColumn: Date.'N° mois'
+	toColumn: Mois.month_num
+

@@ -1,0 +1,37 @@
+// RAILPULSE | RTD_RailPulse_Control | requêtes des 12 vignettes du tableau de bord temps réel
+
+// Trains en circulation  (card)
+LiveNetworkLatest() | summarize ["Trains"] = count()
+
+// Retard moyen (min)  (card)
+LiveNetworkLatest() | summarize ["Retard moyen (min)"] = round(avg(delay_min), 1)
+
+// Retards critiques (> 15 min)  (card)
+LiveNetworkLatest() | summarize ["Trains"] = countif(delay_min > 15)
+
+// Vitesse moyenne (km/h)  (card)
+LiveNetworkLatest() | summarize ["km/h"] = round(avg(speed_kmh), 0)
+
+// Voyageurs à bord  (card)
+LiveNetworkLatest() | summarize ["Voyageurs"] = sum(passengers)
+
+// Dernier signal reçu  (card)
+print ["Heure"] = iff(now() - RailClock() < 2m, "EN DIRECT", format_datetime(datetime_utc_to_local(RailClock(), "Europe/Paris"), "HH:mm"))
+
+// Carte du réseau : dernière position de chaque train (taille = retard)  (map)
+LiveNetworkLatest() | project latitude, longitude, Train = strcat(train_id, " · ", line_code, " · ", delay_min, " min"), ["Retard (min)"] = delay_min
+
+// Trains à surveiller  (table)
+LiveNetworkLatest() | where delay_min > 5 | order by delay_min desc | project Train = train_id, Ligne = line_code, Relation = relation, ["Retard (min)"] = delay_min, ["Vitesse (km/h)"] = speed_kmh, Avancement = strcat(round(progress_pct, 0), " %"), ["État"] = etat
+
+// Retard moyen par ligne, minute par minute (30 dernières minutes)  (timechart)
+LiveWindow(30) | summarize ["Retard moyen (min)"] = round(avg(delay_min), 1) by Minute = bin(ts, 1m), Ligne = line_code | order by Minute asc
+
+// Retard moyen par ligne (min)  (bar)
+LiveNetworkLatest() | summarize ["Retard moyen (min)"] = round(avg(delay_min), 1) by Ligne = line_code | order by ["Retard moyen (min)"] desc
+
+// Trains par état  (pie)
+LiveNetworkLatest() | summarize Trains = count() by ["État"] = etat
+
+// Arrêts en pleine voie (vitesse < 20 km/h hors gares, 10 dernières minutes)  (table)
+LiveWindow(10) | where speed_kmh < 20 and progress_pct between (5.0 .. 95.0) | summarize arg_max(ts, *) by train_id | project ["Heure"] = format_datetime(datetime_utc_to_local(ts, "Europe/Paris"), "HH:mm:ss"), Train = train_id, Ligne = line_code, Relation = strcat(origin, " > ", destination), ["Vitesse (km/h)"] = speed_kmh, ["Retard (min)"] = delay_min, Latitude = round(latitude, 4), Longitude = round(longitude, 4) | order by ["Retard (min)"] desc

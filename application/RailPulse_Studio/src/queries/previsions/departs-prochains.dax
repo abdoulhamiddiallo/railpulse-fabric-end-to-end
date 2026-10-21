@@ -1,0 +1,22 @@
+// Les 50 prochains départs prévus, dans l'ordre chronologique.
+EVALUATE
+CALCULATETABLE(
+    TOPN(
+        50,
+        SELECTCOLUMNS(
+            'Prévision',
+            "Départ prévu", 'Prévision'[Départ prévu],
+            "Relation", RELATED('Relation'[Relation]),
+            "Ligne", RELATED('Relation'[Ligne]),
+            "Rame", RELATED('Rame'[Rame]),
+            "Sévérité météo", 'Prévision'[Sévérité météo],
+            "Remplissage prévu", 'Prévision'[Remplissage prévu],
+            "Retard prévu (min)", 'Prévision'[Retard prévu (min)],
+            "Niveau de risque", 'Prévision'[Niveau de risque]
+        ),
+        [Départ prévu], ASC,
+        [Relation], ASC
+    )
+    /*,FILTRE_RELATION*/
+)
+ORDER BY [Départ prévu], [Relation]

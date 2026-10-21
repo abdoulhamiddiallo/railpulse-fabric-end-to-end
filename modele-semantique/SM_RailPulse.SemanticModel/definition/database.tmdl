@@ -1,0 +1,6 @@
+/// Modèle Direct Lake RailPulse
+database SM_RailPulse
+	compatibilityLevel: 1604
+	compatibilityMode: powerBI
+	language: 1033
+

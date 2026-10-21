@@ -1,0 +1,49 @@
+/// Les 24 relations orientées (12 lignes dans les deux sens)
+table Relation
+
+	column route_key
+		dataType: string
+		isHidden
+		summarizeBy: none
+		sourceColumn: route_key
+
+	column Ligne
+		dataType: string
+		summarizeBy: none
+		sourceColumn: line_code
+
+	column Origine
+		dataType: string
+		isHidden
+		summarizeBy: none
+		sourceColumn: origin
+
+	column Destination
+		dataType: string
+		isHidden
+		summarizeBy: none
+		sourceColumn: destination
+
+	column Relation
+		dataType: string
+		summarizeBy: none
+		sourceColumn: route_name
+
+	column 'Distance (km)'
+		dataType: int64
+		formatString: #,0
+		summarizeBy: none
+		sourceColumn: distance_km
+
+	column Transfrontalière
+		dataType: boolean
+		summarizeBy: none
+		sourceColumn: is_cross_border
+
+	partition Relation = entity
+		mode: directLake
+		source
+			entityName: dim_route
+			schemaName: dbo
+			expressionSource: DatabaseQuery
+

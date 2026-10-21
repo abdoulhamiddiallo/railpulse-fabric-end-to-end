@@ -1,0 +1,14 @@
+// Tracés des lignes : un segment par ligne (sens aller), voyageurs des deux sens.
+EVALUATE
+FILTER(
+    ADDCOLUMNS(
+        SUMMARIZECOLUMNS('Relation'[Ligne], 'Relation'[Origine], 'Relation'[Destination]),
+        "Voyageurs ligne", CALCULATE([Voyageurs], REMOVEFILTERS('Relation'[Origine], 'Relation'[Destination])),
+        "Lat origine", LOOKUPVALUE('Gare'[Latitude], 'Gare'[Code gare], 'Relation'[Origine]),
+        "Lon origine", LOOKUPVALUE('Gare'[Longitude], 'Gare'[Code gare], 'Relation'[Origine]),
+        "Lat destination", LOOKUPVALUE('Gare'[Latitude], 'Gare'[Code gare], 'Relation'[Destination]),
+        "Lon destination", LOOKUPVALUE('Gare'[Longitude], 'Gare'[Code gare], 'Relation'[Destination])
+    ),
+    'Relation'[Origine] < 'Relation'[Destination]
+)
+ORDER BY 'Relation'[Ligne]

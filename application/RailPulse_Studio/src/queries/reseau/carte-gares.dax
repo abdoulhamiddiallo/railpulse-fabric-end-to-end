@@ -1,0 +1,12 @@
+// Gares du réseau : position et voyageurs au départ.
+EVALUATE
+SUMMARIZECOLUMNS(
+    'Gare'[Code gare],
+    'Gare'[Ville],
+    'Gare'[Pays],
+    'Gare'[Latitude],
+    'Gare'[Longitude],
+    "Voyageurs", [Voyageurs],
+    "Ponctualité %", [Ponctualité %]
+)
+ORDER BY [Voyageurs] DESC

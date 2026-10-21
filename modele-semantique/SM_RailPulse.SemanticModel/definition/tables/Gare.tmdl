@@ -1,0 +1,55 @@
+/// Les 12 gares du réseau RailPulse
+table Gare
+
+	column 'Code gare'
+		dataType: string
+		summarizeBy: none
+		sourceColumn: station_code
+
+	column Gare
+		dataType: string
+		summarizeBy: none
+		sourceColumn: station_name
+
+	column Ville
+		dataType: string
+		summarizeBy: none
+		sourceColumn: city
+
+	column 'Code pays'
+		dataType: string
+		summarizeBy: none
+		sourceColumn: country_code
+
+	column Pays
+		dataType: string
+		summarizeBy: none
+		sourceColumn: country_name
+
+	column Latitude
+		dataType: double
+		formatString: 0.0000
+		dataCategory: Latitude
+		summarizeBy: none
+		sourceColumn: latitude
+
+	column Longitude
+		dataType: double
+		formatString: 0.0000
+		dataCategory: Longitude
+		summarizeBy: none
+		sourceColumn: longitude
+
+	column Hub
+		dataType: int64
+		isHidden
+		summarizeBy: none
+		sourceColumn: is_hub
+
+	partition Gare = entity
+		mode: directLake
+		source
+			entityName: dim_station
+			schemaName: dbo
+			expressionSource: DatabaseQuery
+

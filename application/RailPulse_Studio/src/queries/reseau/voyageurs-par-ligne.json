@@ -1,0 +1,70 @@
+{
+  "$schema": "https://vega.github.io/schema/vega-lite/v6.json",
+  "description": "Voyageurs par ligne, classés du plus au moins fréquenté, aux couleurs des pictogrammes.",
+  "width": "container",
+  "height": "container",
+  "encoding": {
+    "y": {
+      "field": "Ligne",
+      "type": "nominal",
+      "sort": {
+        "field": "Voyageurs",
+        "op": "max",
+        "order": "descending"
+      },
+      "title": null
+    },
+    "x": {
+      "field": "Voyageurs",
+      "type": "quantitative",
+      "title": "Voyageurs"
+    }
+  },
+  "layer": [
+    {
+      "mark": {
+        "type": "bar"
+      },
+      "encoding": {
+        "color": {
+          "field": "Ligne",
+          "type": "nominal",
+          "scale": {
+            "domain": [],
+            "range": []
+          },
+          "legend": null
+        },
+        "opacity": {
+          "value": 1
+        },
+        "tooltip": [
+          {
+            "field": "Ligne",
+            "type": "nominal"
+          },
+          {
+            "field": "Voyageurs",
+            "type": "quantitative"
+          },
+          {
+            "field": "Ponctualite",
+            "type": "quantitative"
+          }
+        ]
+      }
+    },
+    {
+      "mark": {
+        "type": "text",
+        "style": "labelHorizontal"
+      },
+      "encoding": {
+        "text": {
+          "field": "Voyageurs",
+          "type": "quantitative"
+        }
+      }
+    }
+  ]
+}

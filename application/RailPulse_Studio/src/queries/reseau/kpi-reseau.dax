@@ -1,0 +1,14 @@
+// Tableau d'affichage du réseau : indicateurs clés (réseau ou relation choisie).
+EVALUATE
+CALCULATETABLE(
+    ROW(
+        "Trains assurés", [Trains assurés],
+        "Voyageurs", [Voyageurs],
+        "Chiffre d'affaires (M€)", [Chiffre d'affaires (M€)],
+        "Ponctualité %", [Ponctualité %],
+        "Taux de remplissage %", [Taux de remplissage %],
+        "CO2 évité (t)", [CO2 évité (t)],
+        "Objectif ponctualité %", [Objectif ponctualité %]
+    )
+    /*,FILTRE_RELATION*/
+)

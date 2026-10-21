@@ -1,0 +1,10 @@
+// Liste des 24 relations pour le sélecteur, avec leur ligne.
+EVALUATE
+SUMMARIZECOLUMNS(
+    'Relation'[Ligne],
+    'Relation'[Relation],
+    'Relation'[Distance (km)],
+    'Relation'[Transfrontalière],
+    "Voyageurs", [Voyageurs]
+)
+ORDER BY 'Relation'[Ligne], 'Relation'[Relation]

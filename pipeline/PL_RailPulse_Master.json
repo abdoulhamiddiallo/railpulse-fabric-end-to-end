@@ -1,0 +1,313 @@
+{
+  "properties": {
+    "activities": [
+      {
+        "name": "NB_Source_Simulator",
+        "type": "TridentNotebook",
+        "dependsOn": [],
+        "policy": {
+          "timeout": "0.12:00:00",
+          "retry": 2,
+          "retryIntervalInSeconds": 120,
+          "secureOutput": false,
+          "secureInput": false
+        },
+        "typeProperties": {
+          "notebookId": "<ID_NB_01_Source_Simulator>",
+          "workspaceId": "<ID_ESPACE_DE_TRAVAIL>"
+        }
+      },
+      {
+        "name": "CP_Trips_To_Bronze",
+        "type": "Copy",
+        "dependsOn": [
+          {
+            "activity": "NB_Source_Simulator",
+            "dependencyConditions": [
+              "Succeeded"
+            ]
+          }
+        ],
+        "policy": {
+          "timeout": "0.12:00:00",
+          "retry": 0,
+          "retryIntervalInSeconds": 30,
+          "secureOutput": false,
+          "secureInput": false
+        },
+        "typeProperties": {
+          "source": {
+            "type": "DelimitedTextSource",
+            "storeSettings": {
+              "type": "AzureBlobStorageReadSettings",
+              "recursive": true,
+              "wildcardFolderPath": "landing/trips",
+              "wildcardFileName": "*.csv",
+              "enablePartitionDiscovery": false
+            },
+            "formatSettings": {
+              "type": "DelimitedTextReadSettings"
+            },
+            "datasetSettings": {
+              "annotations": [],
+              "linkedService": {
+                "name": "LH_RailPulse_Bronze",
+                "properties": {
+                  "annotations": [],
+                  "type": "Lakehouse",
+                  "typeProperties": {
+                    "workspaceId": "<ID_ESPACE_DE_TRAVAIL>",
+                    "artifactId": "<ID_LH_RailPulse_Bronze>",
+                    "rootFolder": "Files"
+                  }
+                }
+              },
+              "type": "DelimitedText",
+              "typeProperties": {
+                "location": {
+                  "type": "LakehouseLocation"
+                },
+                "columnDelimiter": ",",
+                "escapeChar": "\\",
+                "firstRowAsHeader": true,
+                "quoteChar": "\""
+              },
+              "schema": []
+            }
+          },
+          "sink": {
+            "type": "LakehouseTableSink",
+            "tableActionOption": "OverwriteSchema",
+            "partitionOption": "None",
+            "applyVOrder": false,
+            "enableTimestampNtz": false,
+            "datasetSettings": {
+              "annotations": [],
+              "linkedService": {
+                "name": "LH_RailPulse_Bronze",
+                "properties": {
+                  "annotations": [],
+                  "type": "Lakehouse",
+                  "typeProperties": {
+                    "workspaceId": "<ID_ESPACE_DE_TRAVAIL>",
+                    "artifactId": "<ID_LH_RailPulse_Bronze>",
+                    "rootFolder": "Tables"
+                  }
+                }
+              },
+              "type": "LakehouseTable",
+              "schema": [],
+              "typeProperties": {
+                "table": "bronze_trips"
+              }
+            }
+          },
+          "enableStaging": false,
+          "translator": {
+            "type": "TabularTranslator",
+            "typeConversion": true,
+            "typeConversionSettings": {
+              "allowDataTruncation": true,
+              "treatBooleanAsNumber": false
+            }
+          }
+        }
+      },
+      {
+        "name": "DF_Reference",
+        "type": "RefreshDataflow",
+        "dependsOn": [
+          {
+            "activity": "NB_Source_Simulator",
+            "dependencyConditions": [
+              "Succeeded"
+            ]
+          }
+        ],
+        "policy": {
+          "timeout": "0.12:00:00",
+          "retry": 0,
+          "retryIntervalInSeconds": 30,
+          "secureOutput": false,
+          "secureInput": false
+        },
+        "typeProperties": {
+          "dataflowId": "<ID_DF_RailPulse_Reference>",
+          "workspaceId": "<ID_ESPACE_DE_TRAVAIL>",
+          "notifyOption": "NoNotification",
+          "dataflowType": "DataflowFabric",
+          "executeMashupQueriesOnly": true
+        }
+      },
+      {
+        "name": "NB_Bronze_To_Silver",
+        "type": "TridentNotebook",
+        "dependsOn": [
+          {
+            "activity": "CP_Trips_To_Bronze",
+            "dependencyConditions": [
+              "Succeeded"
+            ]
+          },
+          {
+            "activity": "DF_Reference",
+            "dependencyConditions": [
+              "Succeeded"
+            ]
+          }
+        ],
+        "policy": {
+          "timeout": "0.12:00:00",
+          "retry": 2,
+          "retryIntervalInSeconds": 120,
+          "secureOutput": false,
+          "secureInput": false
+        },
+        "typeProperties": {
+          "notebookId": "<ID_NB_02_Bronze_To_Silver>",
+          "workspaceId": "<ID_ESPACE_DE_TRAVAIL>"
+        }
+      },
+      {
+        "name": "NB_ML_Forecast",
+        "type": "TridentNotebook",
+        "dependsOn": [
+          {
+            "activity": "NB_Bronze_To_Silver",
+            "dependencyConditions": [
+              "Succeeded"
+            ]
+          }
+        ],
+        "policy": {
+          "timeout": "0.12:00:00",
+          "retry": 2,
+          "retryIntervalInSeconds": 120,
+          "secureOutput": false,
+          "secureInput": false
+        },
+        "typeProperties": {
+          "notebookId": "<ID_NB_03_ML_Delay_Forecast>",
+          "workspaceId": "<ID_ESPACE_DE_TRAVAIL>"
+        }
+      },
+      {
+        "name": "SP_Load_Gold",
+        "type": "SqlServerStoredProcedure",
+        "dependsOn": [
+          {
+            "activity": "NB_ML_Forecast",
+            "dependencyConditions": [
+              "Succeeded"
+            ]
+          }
+        ],
+        "policy": {
+          "timeout": "0.12:00:00",
+          "retry": 0,
+          "retryIntervalInSeconds": 30,
+          "secureOutput": false,
+          "secureInput": false
+        },
+        "typeProperties": {
+          "storedProcedureName": "[dbo].[usp_Load_Gold]",
+          "storedProcedureParameters": {
+            "run_id": {
+              "value": {
+                "value": "@pipeline().RunId",
+                "type": "Expression"
+              },
+              "type": "String"
+            }
+          }
+        },
+        "linkedService": {
+          "name": "WH_RailPulse_Gold",
+          "properties": {
+            "annotations": [],
+            "type": "DataWarehouse",
+            "typeProperties": {
+              "endpoint": "<POINT_DE_TERMINAISON_SQL_DE_L_ENTREPOT>",
+              "artifactId": "<ID_WH_RailPulse_Gold>",
+              "workspaceId": "<ID_ESPACE_DE_TRAVAIL>"
+            }
+          }
+        }
+      },
+      {
+        "name": "MAIL_Success",
+        "type": "Office365Email",
+        "dependsOn": [
+          {
+            "activity": "SP_Load_Gold",
+            "dependencyConditions": [
+              "Succeeded"
+            ]
+          }
+        ],
+        "policy": {
+          "timeout": "0.12:00:00",
+          "retry": 0,
+          "retryIntervalInSeconds": 30,
+          "secureOutput": false,
+          "secureInput": false
+        },
+        "typeProperties": {
+          "to": "<VOTRE_ADRESSE_MICROSOFT_365>",
+          "subject": "RailPulse : chargement réussi",
+          "body": "<p>@concat('Chargement RailPulse terminé. Exécution ', pipeline().RunId, ' le ', utcNow())</p>"
+        },
+        "externalReferences": {
+          "connection": "<ID_CONNEXION_OUTLOOK>"
+        }
+      },
+      {
+        "name": "MAIL_Failure",
+        "type": "Office365Email",
+        "dependsOn": [
+          {
+            "activity": "SP_Load_Gold",
+            "dependencyConditions": [
+              "Failed",
+              "Skipped"
+            ]
+          }
+        ],
+        "policy": {
+          "timeout": "0.12:00:00",
+          "retry": 0,
+          "retryIntervalInSeconds": 30,
+          "secureOutput": false,
+          "secureInput": false
+        },
+        "typeProperties": {
+          "to": "<VOTRE_ADRESSE_MICROSOFT_365>",
+          "subject": "RailPulse : échec du chargement",
+          "body": "<p>@concat('Le pipeline RailPulse a échoué. Exécution ', pipeline().RunId)</p>"
+        },
+        "externalReferences": {
+          "connection": "<ID_CONNEXION_OUTLOOK>"
+        }
+      },
+      {
+        "name": "FAIL_Pipeline",
+        "type": "Fail",
+        "dependsOn": [
+          {
+            "activity": "MAIL_Failure",
+            "dependencyConditions": [
+              "Succeeded"
+            ]
+          }
+        ],
+        "typeProperties": {
+          "message": {
+            "value": "@concat('RailPulse en échec, exécution ', pipeline().RunId)",
+            "type": "Expression"
+          },
+          "errorCode": "RP-500"
+        }
+      }
+    ]
+  }
+}

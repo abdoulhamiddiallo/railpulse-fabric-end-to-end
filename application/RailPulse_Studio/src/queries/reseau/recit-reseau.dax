@@ -1,0 +1,6 @@
+// Période analysée et récit du réseau entier (non filtré par relation).
+EVALUATE
+ROW(
+    "Période analysée", [Période analysée],
+    "Récit réseau", [Récit réseau]
+)
