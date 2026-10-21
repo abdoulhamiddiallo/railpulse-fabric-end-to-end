@@ -31,6 +31,11 @@
   <a href="https://www.linkedin.com/in/abdoul-hamid-diallo-fabric-data-engineer/"><b>💼 LinkedIn</b></a>
 </p>
 
+<p align="center">
+  Réalisé par <b>Abdoul Hamid Diallo</b>, Microsoft Data &amp; AI Engineer, titulaire de <b>7 certifications Microsoft</b><br>
+  <img alt="DP-600" src="https://img.shields.io/badge/Microsoft%20Certified-DP--600-0F6CBD?style=flat-square&logo=microsoft&logoColor=white"> <img alt="DP-700" src="https://img.shields.io/badge/Microsoft%20Certified-DP--700-0F6CBD?style=flat-square&logo=microsoft&logoColor=white"> <img alt="PL-300" src="https://img.shields.io/badge/Microsoft%20Certified-PL--300-C99200?style=flat-square&logo=microsoft&logoColor=white"> <img alt="AI-102" src="https://img.shields.io/badge/Microsoft%20Certified-AI--102-7B4FE0?style=flat-square&logo=microsoft&logoColor=white"> <img alt="DP-100" src="https://img.shields.io/badge/Microsoft%20Certified-DP--100-7B4FE0?style=flat-square&logo=microsoft&logoColor=white"> <img alt="AI-900" src="https://img.shields.io/badge/Microsoft%20Certified-AI--900-2E8B57?style=flat-square&logo=microsoft&logoColor=white"> <img alt="DP-900" src="https://img.shields.io/badge/Microsoft%20Certified-DP--900-2E8B57?style=flat-square&logo=microsoft&logoColor=white">
+</p>
+
 ---
 
 ## 🏗️ Architecture
@@ -323,6 +328,8 @@ RailPulse montre ce que Microsoft Fabric change concrètement : une plateforme c
 ## 👤 Auteur
 
 **Abdoul Hamid Diallo** · Microsoft Data & AI Engineer
+
+<img alt="DP-600" src="https://img.shields.io/badge/Microsoft%20Certified-DP--600-0F6CBD?style=flat-square&logo=microsoft&logoColor=white"> <img alt="DP-700" src="https://img.shields.io/badge/Microsoft%20Certified-DP--700-0F6CBD?style=flat-square&logo=microsoft&logoColor=white"> <img alt="PL-300" src="https://img.shields.io/badge/Microsoft%20Certified-PL--300-C99200?style=flat-square&logo=microsoft&logoColor=white"> <img alt="AI-102" src="https://img.shields.io/badge/Microsoft%20Certified-AI--102-7B4FE0?style=flat-square&logo=microsoft&logoColor=white"> <img alt="DP-100" src="https://img.shields.io/badge/Microsoft%20Certified-DP--100-7B4FE0?style=flat-square&logo=microsoft&logoColor=white"> <img alt="AI-900" src="https://img.shields.io/badge/Microsoft%20Certified-AI--900-2E8B57?style=flat-square&logo=microsoft&logoColor=white"> <img alt="DP-900" src="https://img.shields.io/badge/Microsoft%20Certified-DP--900-2E8B57?style=flat-square&logo=microsoft&logoColor=white">
 
 ### 🏅 Certifications Microsoft
 

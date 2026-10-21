@@ -5,7 +5,7 @@
 ## Le chemin d'un signal
 
 1. **`NB_04_Live_Simulator`** calcule la position de chaque train en circulation et envoie un événement JSON toutes les 3 secondes : `event_time`, `train_id`, `line_code`, `origin`, `destination`, `progress_pct`, `latitude`, `longitude`, `speed_kmh`, `delay_min`, `passengers`, `energy_kwh`, `status`. La nuit, il rejoue la pointe de 17 h 30 pour qu'il y ait toujours des trains sur le réseau.
-2. **`ES_RailPulse_Live`** reçoit le flux sur un **point de terminaison personnalisé** (protocole Event Hub).
+2. **`ES_RailPulse_Live`** reçoit le flux sur un **point de terminaison personnalisé** (protocole Event Hub) et l'envoie vers deux destinations actives : `dst_eventhouse` (stockage et requêtes KQL) et `dst_activator` (alertes).
 3. **`EH_RailPulse`** l'ingère dans la table `live_telemetry`, interrogeable à la seconde. La **disponibilité OneLake** expose cette table en Delta : un raccourci la rend lisible dans `LH_RailPulse_Silver`, en Spark comme en T-SQL, sans copie.
 4. **`RTD_RailPulse_Control`** affiche la salle de contrôle, rafraîchie en continu.
 5. **`ACT_RailPulse_Alerts`** (Activator) surveille un flux dérivé de l'Eventstream et envoie une alerte dans **Microsoft Teams** dès qu'un train dépasse 15 minutes de retard.
