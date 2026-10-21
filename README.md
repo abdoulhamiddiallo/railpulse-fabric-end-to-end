@@ -286,7 +286,17 @@ RailPulse montre ce que Microsoft Fabric change concrètement : une plateforme c
 
 **Abdoul Hamid Diallo** · Microsoft Data & AI Engineer
 
-Microsoft Certified : Fabric Analytics Engineer (DP-600) · Fabric Data Engineer (DP-700) · Power BI Data Analyst (PL-300) · Azure AI Engineer (AI-102) · Azure Data Scientist (DP-100)
+### 🏅 Certifications Microsoft
+
+| Certification | Examen | Niveau |
+|---|---|---|
+| Microsoft Certified: Fabric Analytics Engineer Associate | **DP-600** | Associate |
+| Microsoft Certified: Fabric Data Engineer Associate | **DP-700** | Associate |
+| Microsoft Certified: Power BI Data Analyst Associate | **PL-300** | Associate |
+| Microsoft Certified: Azure AI Engineer Associate | **AI-102** | Associate |
+| Microsoft Certified: Azure Data Scientist Associate | **DP-100** | Associate |
+| Microsoft Certified: Azure AI Fundamentals | **AI-900** | Fundamentals |
+| Microsoft Certified: Azure Data Fundamentals | **DP-900** | Fundamentals |
 
 [![LinkedIn](https://img.shields.io/badge/LinkedIn-Abdoul%20Hamid%20Diallo-0A66C2?style=for-the-badge&logo=linkedin&logoColor=white)](https://www.linkedin.com/in/abdoul-hamid-diallo-fabric-data-engineer/)
 [![GitHub](https://img.shields.io/badge/GitHub-abdoulhamiddiallo-181717?style=for-the-badge&logo=github&logoColor=white)](https://github.com/abdoulhamiddiallo)
