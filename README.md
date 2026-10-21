@@ -6,6 +6,7 @@
 
 <p align="center">
   <b>De la donnée brute au modèle sémantique, puis au rapport Power BI, au temps réel et à l'application Fabric Apps.</b><br>
+  Data Engineering · Data Science · Data Warehouse · Real-Time Intelligence · Power BI · Fabric Apps.<br>
   Un seul espace de travail. Toutes les charges de travail de Fabric. Un guide public pour tout reconstruire.
 </p>
 
@@ -16,6 +17,7 @@
   <img alt="Delta Lake" src="https://img.shields.io/badge/Delta%20Lake-00ADD4?style=for-the-badge&logo=delta&logoColor=white">
   <img alt="T-SQL" src="https://img.shields.io/badge/T--SQL-2E8B57?style=for-the-badge&logo=microsoftsqlserver&logoColor=white">
   <img alt="KQL" src="https://img.shields.io/badge/KQL-E8590C?style=for-the-badge&logo=kusto&logoColor=white">
+  <img alt="Data Science" src="https://img.shields.io/badge/Data%20Science-7B4FE0?style=for-the-badge&logo=scikitlearn&logoColor=white">
   <img alt="MLflow" src="https://img.shields.io/badge/MLflow-0194E2?style=for-the-badge&logo=mlflow&logoColor=white">
   <img alt="DAX" src="https://img.shields.io/badge/DAX-C99200?style=for-the-badge">
   <img alt="React" src="https://img.shields.io/badge/Fabric%20Apps-React-0B7A75?style=for-the-badge&logo=react&logoColor=white">
@@ -37,9 +39,9 @@
 
 **RailPulse** est un opérateur ferroviaire européen fictif : **12 lignes à grande vitesse**, **12 gares**, **6 pays**, de Paris à Amsterdam, Zurich et Milan. Ce dépôt contient toute sa plateforme de données, construite dans un seul espace de travail Microsoft Fabric, sur une capacité d'essai.
 
-Deux voies cohabitent et se rejoignent dans OneLake :
+Ingénierie des données, **science des données**, entrepôt, temps réel et décisionnel y travaillent sur une seule copie des données. Deux voies cohabitent et se rejoignent dans OneLake :
 
-- **La voie batch** raconte les douze derniers mois. Un pipeline maître enchaîne simulation de la source, ingestion, contrôle qualité, machine learning et chargement d'un entrepôt en étoile, que lit un modèle sémantique Direct Lake.
+- **La voie batch** raconte les douze derniers mois. Un pipeline maître enchaîne simulation de la source, ingestion, contrôle qualité, **data science** (un modèle de machine learning qui prévoit les retards) et chargement d'un entrepôt en étoile, que lit un modèle sémantique Direct Lake.
 - **La voie temps réel** raconte le présent. Chaque train en circulation émet sa position toutes les trois secondes ; Eventstream, Eventhouse et KQL en font une salle de contrôle, et Activator prévient dès qu'un train dépasse 15 minutes de retard.
 
 ---
@@ -126,7 +128,7 @@ Chaque pastille numérotée renvoie à l'étape du guide qui construit le bloc.
 | Source | `NB_01_Source_Simulator` | simule 12 mois d'exploitation avec des défauts volontaires | 98 950 trains bruts |
 | 🥉 Bronze | `LH_RailPulse_Bronze` | fichiers bruts dans `Files/landing`, tables `bronze_*` chargées par Copy et Spark | 98 950 · 781 102 |
 | 🥈 Silver | `LH_RailPulse_Silver` | dédoublonnage, quarantaine, `MERGE` Delta, intégrité référentielle, V-Order, références via Dataflow Gen2 | 98 485 · 780 586 |
-| 🧪 ML | `NB_03` · `EXP_RailPulse_Delay` · `ML_RailPulse_Delay` | entraînement suivi par MLflow, modèle versionné, score `PREDICT` | 3 780 prévisions |
+| 🧪 Data Science | `NB_03` · `EXP_RailPulse_Delay` · `ML_RailPulse_Delay` | entraînement suivi par MLflow, modèle versionné, score `PREDICT` | 3 780 prévisions |
 | 🥇 Gold | `WH_RailPulse_Gold` | schéma en étoile par T-SQL inter-bases, sans copie, journal d'exécution | 4 dimensions · 3 faits |
 | 🧠 Sémantique | `SM_RailPulse` | Direct Lake, 9 tables, 10 relations, 50 mesures | aucune actualisation |
 | 📊 Usage | `RPT_RailPulse` · `RailPulse_Studio` | rapport de 6 pages et application web | lecture en direct |
@@ -180,9 +182,19 @@ Fonctions, requêtes du tableau de bord et définition complète : [`temps-reel/
 
 ---
 
-## 🤖 Machine learning
+## 🧪 Data Science : prévoir les retards des 14 prochains jours
 
-| Étape | Choix |
+La partie Data Science transforme douze mois d'historique en une **prévision opérationnelle** : chaque départ des deux semaines à venir reçoit un retard prévu et un niveau de risque, que lisent le rapport, l'application et l'exploitation. Tout le cycle de vie du modèle se fait dans Fabric, sans quitter l'espace de travail.
+
+| Étape du cycle | Ce qui est fait dans Fabric |
+|---|---|
+| 1 · Préparation | un jeu de caractéristiques commun à l'historique et à l'horaire futur, calculé en PySpark sur le lakehouse Silver |
+| 2 · Expérimentation | expérience **MLflow** `EXP_RailPulse_Delay` : paramètres, métriques et modèle journalisés à chaque exécution |
+| 3 · Évaluation | comparaison à une référence naïve (la médiane) sur une période de test jamais vue |
+| 4 · Enregistrement | modèle versionné `ML_RailPulse_Delay`, avec sa signature d'entrée |
+| 5 · Industrialisation | score par lots avec **`PREDICT`** (SynapseML) dans le pipeline, résultats écrits en Delta et métriques historisées dans `ml_model_metrics` |
+
+| Le modèle | Choix |
 |---|---|
 | Cible | retard à l'arrivée, en minutes |
 | Caractéristiques | heure de départ, jour, mois, pointe, distance, relation transfrontalière, météo la plus sévère aux deux gares, âge de la rame, remplissage |
@@ -190,7 +202,7 @@ Fonctions, requêtes du tableau de bord et définition complète : [`temps-reel/
 | Validation | découpage **temporel** : entraînement jusqu'à fin juillet 2026, test sur août et septembre |
 | Résultat | **MAE proche de 2,6 min contre 3,4 min** sans modèle, environ 22 % d'erreur en moins |
 | Mise en production | expérience MLflow `EXP_RailPulse_Delay`, modèle enregistré `ML_RailPulse_Delay`, score par lots avec `PREDICT` |
-| Sortie | niveau de risque FAIBLE, MOYEN ou ÉLEVÉ pour chacun des 3 780 départs des 14 prochains jours |
+| Sortie | niveau de risque FAIBLE (moins de 3 min), MOYEN (3 à 6 min) ou ÉLEVÉ (6 min et plus) pour chacun des 3 780 départs des 14 prochains jours : 402 sont à risque élevé |
 
 ---
 
