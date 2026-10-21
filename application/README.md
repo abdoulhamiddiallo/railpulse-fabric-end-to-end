@@ -4,7 +4,9 @@
 
 | Voie 1 · Réseau | Voie 2 · Ponctualité |
 |---|---|
-| ![Voie 1 Réseau](../docs/images/application/voie1_reseau.png) | ![Voie 2 Ponctualité](../docs/images/application/voie2_ponctualite.png) |
+| ![RailPulse Studio, voie Réseau](../docs/images/application/voie1_reseau.png) | ![RailPulse Studio, voie Ponctualité](../docs/images/application/voie2_ponctualite.png) |
+| **Voie 3 · Prévisions** | **Voie 4 · Fiche relation** |
+| ![RailPulse Studio, voie Prévisions](../docs/images/application/voie3_previsions.png) | ![RailPulse Studio, voie Fiche relation](../docs/images/application/voie4_fiche_relation.png) |
 
 ## Les quatre voies
 

@@ -211,6 +211,8 @@ La partie Data Science transforme douze mois d'historique en une **prévision op
 | Voie 1 · Réseau | Voie 2 · Ponctualité |
 |---|---|
 | ![RailPulse Studio, voie Réseau](docs/images/application/voie1_reseau.png) | ![RailPulse Studio, voie Ponctualité](docs/images/application/voie2_ponctualite.png) |
+| **Voie 3 · Prévisions** | **Voie 4 · Fiche relation** |
+| ![RailPulse Studio, voie Prévisions](docs/images/application/voie3_previsions.png) | ![RailPulse Studio, voie Fiche relation](docs/images/application/voie4_fiche_relation.png) |
 
 **RailPulse Studio** est une application React hébergée **dans** l'espace de travail Fabric. Elle interroge `SM_RailPulse` en DAX, en direct, avec les droits de l'utilisateur connecté : quatre voies (Réseau, Ponctualité, Prévisions, Fiche relation), un tableau d'affichage à volets façon gare, une carte du réseau, un mode clair et un mode sombre. Code source et déploiement : [`application/`](application/).
 
