@@ -86,7 +86,7 @@ Ingénierie des données, **science des données**, entrepôt, temps réel et d�
 - **Une seule vérité, sans copie.** Le lakehouse, l'entrepôt, le modèle sémantique, le rapport et l'application lisent les mêmes fichiers Delta de OneLake. Personne ne réconcilie deux chiffres.
 - **La direction sait où agir.** Bruxelles > Paris est la relation à redresser (71,2 % de ponctualité), Francfort > Cologne le modèle à suivre (80,7 %), et les départs de 8 h concentrent le plus de retard (6,2 min en moyenne).
 - **L'exploitation anticipe au lieu de subir.** Le modèle de machine learning désigne chaque matin les départs à risque des 14 prochains jours : samedi 31 octobre ressort comme la journée la plus exposée, avec 94 trains à risque élevé.
-- **L'incident est vu à la seconde.** Un train à l'arrêt en pleine voie apparaît sur la carte de la salle de contrôle, et Activator envoie le courriel sans attendre personne.
+- **L'incident est vu à la seconde.** Un train à l'arrêt en pleine voie apparaît sur la carte de la salle de contrôle, et Activator envoie l'alerte dans Microsoft Teams sans attendre personne.
 - **L'argument climat est chiffré.** 44,3 kg de CO₂ évités par voyageur : un chiffre que le marketing, la RSE et la direction peuvent citer, recalculé à chaque chargement.
 
 ---
@@ -169,7 +169,7 @@ Tours de la Terre en voiture évités =
 | `ES_RailPulse_Live` | reçoit le flux sur un point de terminaison personnalisé (Event Hub) |
 | `EH_RailPulse` | table `live_telemetry`, fonctions KQL, vue matérialisée, disponibilité OneLake |
 | `RTD_RailPulse_Control` | salle de contrôle en 12 vignettes, dont la carte de la dernière position de chaque train |
-| `ACT_RailPulse_Alerts` | courriel dès qu'un train dépasse 15 minutes de retard |
+| `ACT_RailPulse_Alerts` | alerte Microsoft Teams dès qu'un train dépasse 15 minutes de retard |
 
 ```kql
 // Le réseau en direct : dernière position de chaque train et sa classe de retard
@@ -177,6 +177,10 @@ LiveWindow(5)
 | summarize arg_max(ts, *) by train_id
 | extend etat = case(delay_min > 15, "Retard critique", delay_min > 5, "En retard", "A l'heure")
 ```
+
+L'alerte reçue dans Microsoft Teams quand l'incident simulé de la ligne L02 dépasse 15 minutes de retard :
+
+<p align="center"><img src="docs/images/fabric/activator_alerte_teams.png" alt="Alerte Activator dans Microsoft Teams" width="560"></p>
 
 Fonctions, requêtes du tableau de bord et définition complète : [`temps-reel/`](temps-reel/).
 

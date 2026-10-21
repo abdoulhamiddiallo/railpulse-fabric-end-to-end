@@ -8,7 +8,11 @@
 2. **`ES_RailPulse_Live`** reçoit le flux sur un **point de terminaison personnalisé** (protocole Event Hub).
 3. **`EH_RailPulse`** l'ingère dans la table `live_telemetry`, interrogeable à la seconde. La **disponibilité OneLake** expose cette table en Delta : un raccourci la rend lisible dans `LH_RailPulse_Silver`, en Spark comme en T-SQL, sans copie.
 4. **`RTD_RailPulse_Control`** affiche la salle de contrôle, rafraîchie en continu.
-5. **`ACT_RailPulse_Alerts`** (Activator) envoie un courriel dès qu'un train dépasse 15 minutes de retard.
+5. **`ACT_RailPulse_Alerts`** (Activator) surveille un flux dérivé de l'Eventstream et envoie une alerte dans **Microsoft Teams** dès qu'un train dépasse 15 minutes de retard.
+
+<p align="center"><img src="../docs/images/fabric/activator_alerte_teams.png" alt="Alerte Activator reçue dans Microsoft Teams" width="560"></p>
+
+L'alerte donne l'heure d'activation, le train, la ligne, le retard et l'état : ici le train `20261020-STRPAR-1600` de la ligne L02, à 16 minutes de retard, pendant l'incident simulé.
 
 ## Fichiers
 
